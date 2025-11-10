@@ -42,7 +42,7 @@ export function TeamSwitcher({
                 <activeTeam.logo className="size-4" />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{activeTeam.name}</span>
+                <span className="truncate font-bold">{activeTeam.name}</span>
                 <span className="truncate text-xs">{activeTeam.plan}</span>
               </div>
               <ChevronsUpDown className="ml-auto" />
@@ -54,7 +54,7 @@ export function TeamSwitcher({
             side={isMobile ? "bottom" : "right"}
             sideOffset={4}>
             <DropdownMenuLabel className="text-neutral-500 text-xs dark:text-neutral-400">
-              Teams
+              Plans
             </DropdownMenuLabel>
             {teams.map((team, index) => (
               <DropdownMenuItem key={team.name} onClick={() => setActiveTeam(team)} className="gap-2 p-2">
@@ -65,14 +65,7 @@ export function TeamSwitcher({
                 <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
               </DropdownMenuItem>
             ))}
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="gap-2 p-2">
-              <div
-                className="flex size-6 items-center justify-center rounded-md border border-neutral-200 bg-transparent dark:border-neutral-800">
-                <Plus className="size-4" />
-              </div>
-              <div className="text-neutral-500 font-medium dark:text-neutral-400">Add team</div>
-            </DropdownMenuItem>
+            
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

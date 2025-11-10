@@ -4,7 +4,7 @@ import React from 'react';
 const Features = () => {
   return (
 
-    <div className="mx-auto px-6 py-20 lg:py-30 border-b border-gray-800 text-center">
+    <div id='featuresSection' className="mx-auto px-6 py-20 lg:py-30 border-b border-gray-800 text-center">
       <h2 className='text-4xl sm:text-5xl font-extrabold tracking-tight mb-16 '>
         The smartest AI for resume writing
       </h2>
@@ -109,14 +109,14 @@ const Features = () => {
                 Resume Score
               </div>
               <div className="font-semibold text-lg">
-                86/100
+                95/100
               </div>
             </div>
             {/* 进度条 */}
             <div className="w-full bg-gray-600 rounded-full h-2.5">
               <div
                 className="bg-green-500 h-2.5 rounded-full"
-                style={{ width: '86%' }}
+                style={{ width: '95%' }}
               ></div>
             </div>
           </div>

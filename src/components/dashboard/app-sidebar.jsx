@@ -12,6 +12,8 @@ import {
   PieChart,
   Settings2,
   SquareTerminal,
+  Sparkles,
+  Atom,
 } from "lucide-react"
 
 import { NavMain } from "@/components/ui/nav-main"
@@ -30,25 +32,21 @@ import {
 const data = {
   user: {
     name: "Zexiang",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    email: "zhangzexiang626@gmail.com",
+    avatar: "@/src/assets/team/zexiang.jpg",
   },
   teams: [
     {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
+      name: "Core AI",
+      logo: Sparkles,
+      plan: "Basic",
     },
     {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
+      name: "HiveMind AI",
+      logo: Atom,
+      plan: "Pro",
     },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
+
   ],
   navMain: [
     {
@@ -72,20 +70,20 @@ const data = {
       ],
     },
     {
-      title: "Models",
+      title: "AI Resume",
       url: "#",
       icon: Bot,
       items: [
         {
-          title: "Genesis",
+          title: "功能1",
           url: "#",
         },
         {
-          title: "Explorer",
+          title: "功能2",
           url: "#",
         },
         {
-          title: "Quantum",
+          title: "功能3",
           url: "#",
         },
       ],

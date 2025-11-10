@@ -36,15 +36,15 @@ function TechLogos() {
             {/* Basic horizontal loop */}
             <LogoLoop
                 logos={techLogos}
-                speed={120}
+                speed={40}
                 direction="left"
                 logoHeight={48}
-                gap={40}
+                gap={100}
                 hoverSpeed={0}
                 scaleOnHover
                 fadeOut
                 fadeOutColor="#131827"
-                ariaLabel="Technology partners"
+                ariaLabel="Technology Company Logos"
             />
 
 

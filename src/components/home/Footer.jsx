@@ -78,7 +78,7 @@ const Footer = () => {
 
     {/* 版权信息：在移动端 (默认) 位于下方居中 */}
     <p className='text-gray-400 order-2 md:order-1 text-center'>
-        &copy; {currentYear} Resumate. All rights reserved.
+        &copy; {currentYear} FairStart. All rights reserved.
     </p>
 
 </div>

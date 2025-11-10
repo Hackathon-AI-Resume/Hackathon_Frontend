@@ -14,12 +14,21 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-
+import { Routes, Route } from "react-router-dom";
+import DashboardHome from '@/components/dashboard/DashboardHome'
+import DashboardCreate from '@/components/dashboard/DashboardCreate'
 const Dashboard = () => {
   return (
-<SidebarProvider>
+    <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
+
+        <Routes>
+          <Route path="/" element={<DashboardHome />} />
+          <Route path="create" element={<DashboardCreate />} />
+          
+        </Routes>
+
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
@@ -48,7 +57,7 @@ const Dashboard = () => {
             <div className="bg-muted/50 aspect-video rounded-xl" />
             <div className="bg-muted/50 aspect-video rounded-xl" />
           </div>
-          <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
+          <div className="bg-muted/50 min-h-screen flex-1 rounded-xl md:min-h-min" />
         </div>
       </SidebarInset>
     </SidebarProvider>

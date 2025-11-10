@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from '../ui/button.jsx';
 import TechLogos from './TechLogos.jsx';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -43,10 +44,12 @@ const Hero = () => {
       {/* 按钮组：使用 Flex 布局居中，并在移动端堆叠或居中 */}
       <div className='flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4'>
 
+        <Link to="/dashboard">
+          <Button className="h-12 px-8 text-lg bg-white text-gray-900 font-semibold rounded-lg shadow-md transition-colors duration-200 hover:bg-gray-200 border border-transparent">
+            Get Started &gt;&gt;
+          </Button>
+        </Link>
 
-        <Button className="h-12 px-8 text-lg bg-white text-gray-900 font-semibold rounded-lg shadow-md transition-colors duration-200 hover:bg-gray-200 border border-transparent">
-          Get Started &gt;&gt;
-        </Button>
 
 
         <Button className="h-12 px-8 text-lg bg-transparent text-white font-semibold rounded-lg transition-colors duration-200 hover:bg-gray-800 border border-gray-700">
@@ -57,7 +60,7 @@ const Hero = () => {
       {/* 技术栈 Logo 循环组件 */}
       <div className='mt-32'>
         <TechLogos />
-      </div>  
+      </div>
     </div>
   );
 }

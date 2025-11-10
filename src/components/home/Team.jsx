@@ -1,14 +1,21 @@
 import React from 'react'
 import ChromaGrid from '../ui/chroma-grid.jsx'
 import { Linkedin } from "lucide-react";
+import Yanyi from '@/assets/team/yanyi.jpg'
+import Zexaing from '@/assets/team/zexiang.jpg'
+
+import TextType from '../ui/text-type.jsx';
+
+
 const Team = () => {
 
   const items = [
     {
-      image: "https://media.licdn.com/dms/image/v2/D5603AQEpT4XOgoEX1Q/profile-displayphoto-shrink_200_200/B56ZTzZCFZGoAY-/0/1739250213696?e=1764201600&v=beta&t=pWNyzIR0hJ1O2RDyY_YiTEnvNkDh6ESWgh7E8EKZgoI",
+      image: Zexaing,
       title: "Zexiang Zhang",
-      subtitle: "Frontend Developer",
-      handle: "@",
+      subtitle: "Full Stack Engineer",
+      handle: "@Trevor",
+
       borderColor: "#3B82F6",
       gradient: "linear-gradient(145deg, #3B82F6, #000)",
       url: "https://www.linkedin.com/in/zexiang-zhang-9842b6160/"
@@ -23,10 +30,10 @@ const Team = () => {
       url: "https://www.linkedin.com/in/yanfeng-tan/"
     },
     {
-      image: "https://media.licdn.com/dms/image/v2/D4E35AQHe3R8bGywDQg/profile-framedphoto-shrink_200_200/profile-framedphoto-shrink_200_200/0/1732828594748?e=1763247600&v=beta&t=4lfk49C2WFL9nryAPfMJVOz7qog27ps4f3M9JM5MyeU",
+      image: Yanyi,
       title: "Yanyi He",
-      subtitle: "MLE",
-      handle: "@Heyanyi",
+      subtitle: "Machine Learning Engineer",
+      handle: "@Ashley",
       borderColor: "#10B981",
       gradient: "linear-gradient(165deg, #10B981, #000)",
       url: "https://www.linkedin.com/in/yanyi-he-76b730328/"
@@ -34,8 +41,8 @@ const Team = () => {
     {
       image: "https://media.licdn.com/dms/image/v2/D5603AQGbVpJCOHkTbg/profile-displayphoto-shrink_200_200/B56ZOS76xZGoAY-/0/1733337001452?e=1764201600&v=beta&t=emPCk9ybTFB-Ryg1dcS-brKMfo43KXoSPEQKpETqyAw",
       title: "Chunyu Huang",
-      subtitle: "Hardware Engineer",
-      handle: "@",
+      subtitle: "System Engineer",
+      handle: "@Jack",
       borderColor: "#F59E0B",
       gradient: "linear-gradient(195deg, #F59E0B, #000)",
       url: "https://www.linkedin.com/in/chun-yu-huang-8b194b167/"
@@ -43,14 +50,28 @@ const Team = () => {
   ];
 
   return (
-    <div className='mx-auto px-6 py-20 lg:py-30 border-b border-gray-800'>
+    <div className='mx-auto px-6 py-20 lg:py-30 border-b border-gray-800'
+      id='teamSection'
+    >
 
       <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4">
-        Meet our Team
+        Meet Our Team
       </h2>
-      <p className='text-lg text-gray-400 mb-10 max-w-4xl mx-auto  text-center'>
-        We are a small, passionate team of engineers and designers dedicated to building the future of AI-driven career tools. We value collaboration, open source, and meticulous design.
-      </p>
+      <div className=' text-gray-400 mb-8 max-w-4xl mx-auto text-center'>
+        <TextType
+          text={[
+            "We are a cross-functional squad of four.",
+            "We thrive on rapid iteration and creative problem-solving.",
+            "Our mission: to combine full-stack efficiency, robust backend architecture, and advanced machine learning.",
+            "The result — seamless, stable, and innovative products."
+          ]}
+          typingSpeed={80}
+          pauseDuration={2500}
+          showCursor={true}
+          cursorCharacter="|"
+        />
+      </div>
+
       <div className='w-fit mx-auto' style={{ position: 'relative' }}>
         <ChromaGrid
           items={items}

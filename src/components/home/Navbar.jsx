@@ -1,98 +1,124 @@
 import React, { useState } from "react";
-// 引入用户提供的依赖项
 import { Link } from "react-router-dom";
-import Logo from '../../assets/Fs.png';
-
+import Logo from "../../assets/Fs.png";
 import { Github, Menu, X } from "lucide-react";
-import { Button } from "../ui/button"; // 假设 Button 是一个基础的样式化按钮组件
+import { Button } from "../ui/button";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  return (
-    // 1. 核心容器优化: 固定在顶部，高 z-index, 深色背景 + 模糊透明效果
-    <nav className="sticky top-0 z-50 w-full bg-gray-950/90 backdrop-blur-md shadow-xl border-b border-gray-800">
+  // 导航链接统一管理
+  const navLinks = [
+    { name: "Features", href: "#featuresSection" },
+    { name: "Team", href: "#teamSection" },
+  ];
 
-      {/* 2. 内容居中容器 */}
+  return (
+    <nav className="sticky top-0 z-50 w-full bg-gray-950/90 backdrop-blur-md shadow-xl border-b border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
 
-        {/* 左边：Logo/品牌 */}
+        {/* 左边：Logo */}
         <Link to="/" className="flex items-center space-x-2 shrink-0">
-          <img className="w-10 h-10 rounded-full object-cover" src={Logo} alt="AI Resume Logo" />
-          <span className="text-xl font-bold text-blue-400 tracking-wider">FairStart</span>
+          <img
+            src={Logo}
+            alt="FairStart Logo"
+            className="w-10 h-10 rounded-full object-cover"
+          />
+          <span className="text-xl font-bold text-blue-400 tracking-wider">
+            FairStart
+          </span>
         </Link>
 
-        {/* 中间：桌面端导航链接 */}
+        {/* 中间：桌面导航 */}
         <div className="hidden md:flex items-center space-x-8 font-medium">
-          {/* 统一使用 text-gray-300 和 hover:text-blue-400 */}
-          <Link to="/" className="text-gray-300 hover:text-blue-400 transition-colors">Features</Link>
-          <Link to="/" className="text-gray-300 hover:text-blue-400 transition-colors">Team</Link>
-          <Link to="/" className="flex items-center text-gray-300 hover:text-blue-400 space-x-1 transition-colors">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className="text-gray-300 hover:text-blue-400 transition-colors"
+            >
+              {link.name}
+            </a>
+          ))}
+
+          <Link
+            to="/"
+            className="flex items-center text-gray-300 hover:text-blue-400 space-x-1 transition-colors"
+          >
             <Github size={18} />
             <span>Github</span>
           </Link>
         </div>
 
-        {/* 右边：Dashboard Button (桌面端) */}
-        <div className="hidden md:block">
-          <Link to="/">
-            {/* 3. 按钮样式优化: 浅色背景（bg-white）和深色文本（text-gray-900） */}
-            <Button className="h-10 px-6 bg-white text-gray-900 font-semibold rounded-lg shadow-md transition-colors duration-200 hover:bg-gray-300 border border-transparent">
-              Dashboard
+        {/* 右边：Auth 按钮 */}
+        <div className="hidden md:flex items-center space-x-2">
+          <Link to="/login">
+            <Button variant="ghost" className="text-gray-300 hover:text-blue-400">
+              Log in
             </Button>
           </Link>
+
+          <Link to="/signup">
+            <Button className="bg-white  hover:bg-gray-200 text-gray-900 font-semibold">
+              Sign up
+            </Button>
+          </Link>
+
         </div>
 
-        {/* 移动端：菜单按钮 */}
+        {/* 移动端菜单按钮 */}
         <div className="md:hidden flex items-center">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-white hover:text-blue-400 focus:outline-none"
+            className="text-gray-300 hover:text-blue-400 focus:outline-none"
             aria-label="Toggle menu"
           >
-            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
         </div>
       </div>
 
-      {/* 4. 移动端：下拉菜单 (Menu Dropdown) */}
+      {/* 移动端下拉菜单 */}
       <div
-        className={`md:hidden bg-gray-950 transition-all duration-300 ease-in-out overflow-hidden ${isMenuOpen ? 'max-h-96 opacity-100 py-3' : 'max-h-0 opacity-0'}`}
+        className={`md:hidden bg-gray-950 transition-all duration-300 ease-in-out overflow-hidden ${isMenuOpen ? "max-h-96 opacity-100 py-3" : "max-h-0 opacity-0"
+          }`}
       >
         <div className="flex flex-col space-y-3 px-4 sm:px-6 pb-4 border-t border-gray-800 pt-3">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={() => setIsMenuOpen(false)}
+              className="text-gray-300 hover:text-blue-400 text-lg py-2 transition-colors"
+            >
+              {link.name}
+            </a>
+          ))}
 
           <Link
             to="/"
-            className="text-gray-300 hover:text-blue-400 text-lg py-2 transition-colors"
             onClick={() => setIsMenuOpen(false)}
-          >
-            Features
-          </Link>
-
-          <Link
-            to="/"
-            className="text-gray-300 hover:text-blue-400 text-lg py-2 transition-colors"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Team
-          </Link>
-
-          <Link
-            to="/"
             className="flex items-center text-gray-300 hover:text-blue-400 space-x-2 text-lg py-2 transition-colors"
-            onClick={() => setIsMenuOpen(false)}
           >
             <Github size={20} />
             <span>Github</span>
           </Link>
 
-          <div className="pt-4">
-            <Link to="/" onClick={() => setIsMenuOpen(false)}>
-              {/* 移动端按钮也使用浅色样式 */}
-              <Button className="w-full h-10 bg-white text-gray-900 font-semibold rounded-lg shadow-md transition-colors duration-200 hover:bg-gray-100">
-                Dashboard
-              </Button>
-            </Link>
+          {/* 移动端按钮 */}
+          <div className="pt-4 flex flex-col space-y-2">
+            <Button
+              variant="ghost"
+              className="w-full text-gray-300 hover:text-blue-400"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Log in
+            </Button>
+            <Button
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Sign up
+            </Button>
           </div>
         </div>
       </div>
