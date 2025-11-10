@@ -1,8 +1,8 @@
 import React from 'react'
 import ChromaGrid from '../ui/chroma-grid.jsx'
 import { Linkedin } from "lucide-react";
-import Yanyi from '@/assets/team/yanyi.jpg'
-import Zexaing from '@/assets/team/zexiang.jpg'
+import Yanyi from '@/assets/team/Yanyi.jpg'
+import Zexaing from '@/assets/team/Zexiang.jpg'
 
 import TextType from '../ui/text-type.jsx';
 
