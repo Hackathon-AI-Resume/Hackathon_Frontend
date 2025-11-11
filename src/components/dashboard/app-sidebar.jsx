@@ -76,7 +76,7 @@ const data = {
       items: [
         {
           title: "功能1",
-          url: "#",
+          url: "/dashboard/create",
         },
         {
           title: "功能2",
