@@ -214,14 +214,9 @@ const ResumePreviewComponent = ({ data }) => {
                     <span>
                       {project.projectName || '[Project Name]'}
                       {project.projectLink && (
-                        <a
-                          href={project.projectLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="ml-2 text-blue-600 underline text-xs"
-                        >
-                          (Link)
-                        </a>
+                        <span className="ml-2 text-xs font-normal">
+                          ({project.projectLink})
+                        </span>
                       )}
                     </span>
                     <span className="text-gray-600">
@@ -261,14 +256,9 @@ const ResumePreviewComponent = ({ data }) => {
                     {cert.issuingOrg}
                     {cert.credentialID && ` | ID: ${cert.credentialID}`}
                     {cert.credentialURL && (
-                      <a
-                        href={cert.credentialURL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="ml-2 text-blue-500 underline text-xs"
-                      >
-                        (Verify)
-                      </a>
+                      <span className="ml-2">
+                        URL: {cert.credentialURL}
+                      </span>
                     )}
                   </div>
                 </div>

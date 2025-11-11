@@ -128,6 +128,43 @@ const DashboardCreate = () => {
     const personal = data.PersonalInfo || {};
     const fullName = `${safe(personal.firstName)} ${safe(personal.lastName)}`.trim() || 'Your Name';
     const jobTitle = safe(personal.jobTitle) || '';
+    
+    // 生成联系方式
+    const contactParts = [];
+    const city = safe(personal.city);
+    const country = safe(personal.country);
+    if (city && country) {
+      contactParts.push(`${city}, ${country}`);
+    } else if (city || country) {
+      contactParts.push(city || country);
+    }
+    
+    const phone = safe(personal.phone);
+    if (phone) {
+      contactParts.push(`Tel: ${phone}`);
+    }
+    
+    const email = safe(personal.email);
+    if (email) {
+      contactParts.push(`Email: ${email}`);
+    }
+    
+    const linkedin = safe(personal.linkedin);
+    if (linkedin) {
+      contactParts.push(`LinkedIn: ${linkedin}`);
+    }
+    
+    const portfolio = safe(personal.portfolio);
+    if (portfolio) {
+      contactParts.push(`Portfolio: ${portfolio}`);
+    }
+    
+    const other = safe(personal.other);
+    if (other) {
+      contactParts.push(`Other: ${other}`);
+    }
+    
+    const contactHtml = contactParts.join(' | ');
 
     const sectionRows = (items, renderItem) => {
       if (!Array.isArray(items) || items.length === 0) return '';
@@ -143,12 +180,12 @@ const DashboardCreate = () => {
     });
 
     const projectsHtml = sectionRows(data.Projects, p => {
-      return `<div class="row"><div class="title">${safe(p.projectName)||'[Project]'}</div><div class="meta">${safe(p.startDate)||''} - ${safe(p.endDate)||''}</div><div class="desc">${(safe(p.description)||'').replace(/\n/g,'<br/>')}</div></div>`;
+      return `<div class="row"><div class="title">${safe(p.projectName)||'[Project]'}${safe(p.projectLink) ? ` (${safe(p.projectLink)})` : ''}</div><div class="meta">${safe(p.startDate)||''} - ${safe(p.endDate)||''}</div><div class="desc">${(safe(p.description)||'').replace(/\n/g,'<br/>')}</div></div>`;
     });
 
     const skillsHtml = safe(data.Skills) ? `<div class="skills">${safe(data.Skills).toString().split(/, ?|\n/).filter(s=>s.trim()).join(' | ')}</div>` : '';
 
-    const certsHtml = sectionRows(data.Certificates, c => `<div class="row"><div class="title">${safe(c.name)||'[Certificate]'}</div><div class="meta">${safe(c.issuingOrg)||''} ${safe(c.issueDate)||''}</div></div>`);
+    const certsHtml = sectionRows(data.Certificates, c => `<div class="row"><div class="title">${safe(c.name)||'[Certificate]'}</div><div class="meta">${safe(c.issuingOrg)||''} ${safe(c.issueDate)||''}${safe(c.credentialID) ? ` | ID: ${safe(c.credentialID)}` : ''}${safe(c.credentialURL) ? ` | ${safe(c.credentialURL)}` : ''}</div></div>`);
 
     const summaryHtml = (safe(data.Summary) || '').replace(/\n/g, '<br/>');
 
@@ -159,23 +196,27 @@ const DashboardCreate = () => {
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>${fullName} - Resume</title>
     <style>
-      body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;color:#111;padding:24px;}
-      .header{text-align:center;margin-bottom:18px}
-      .header h1{margin:0;font-size:26px}
-      .header p{margin:6px 0;color:#555}
-      .section{margin-bottom:14px}
-      .section h3{margin:0 0 8px 0;border-bottom:2px solid #222;padding-bottom:4px}
-      .row{margin-bottom:8px}
-      .title{font-weight:600}
-      .meta{color:#666;font-size:12px}
-      .desc{color:#333;font-size:13px}
-      .skills{color:#444;font-size:13px}
+      body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;color:#111;padding:20px;margin:0;line-height:1.5;}
+      .header{text-align:center;margin-bottom:16px;border-bottom:2px solid #222;padding-bottom:12px;}
+      .header h1{margin:0 0 8px 0;font-size:24px;font-weight:700;}
+      .header .job-title{margin:0 0 6px 0;font-size:14px;font-weight:600;color:#333;}
+      .header .contact{margin:0;font-size:11px;color:#555;}
+      .section{margin-bottom:12px;}
+      .section h3{margin:0 0 8px 0;font-size:13px;font-weight:700;border-bottom:1px solid #333;padding-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;}
+      .row{margin-bottom:8px;}
+      .title{font-weight:600;font-size:12px;}
+      .meta{color:#666;font-size:11px;margin-top:2px;}
+      .desc{color:#444;font-size:11px;margin-top:4px;white-space:pre-wrap;}
+      .skills{color:#444;font-size:11px;}
+      ul{margin:4px 0;padding-left:20px;}
+      li{margin:2px 0;font-size:11px;}
     </style>
   </head>
   <body>
     <div class="header">
       <h1>${fullName}</h1>
-      <p>${jobTitle}</p>
+      ${jobTitle ? `<div class="job-title">${jobTitle}</div>` : ''}
+      ${contactHtml ? `<div class="contact">${contactHtml}</div>` : ''}
     </div>
 
     ${summaryHtml ? `<div class="section"><h3>Summary</h3><div class="desc">${summaryHtml}</div></div>` : ''}
@@ -376,7 +417,7 @@ const DashboardCreate = () => {
           </BreadcrumbList>
         </Breadcrumb>
         
-        <div className="mt-6">
+        <div className="mt-6 border-t">
           <RenderActiveForm />
         </div>
       </div>

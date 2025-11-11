@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ReactCompareImage from 'react-compare-image';
 
 const Features = () => {
   return (
@@ -13,7 +13,7 @@ const Features = () => {
         {/* --- 功能模块 1: AI Keyword Targeting --- */}
         <div className="flex flex-col">
           <div className="flex items-center mb-4">
-            {/* 模拟图标 */}
+
             <div className="p-3 rounded-full bg-indigo-700/50 mr-4">
               <svg className="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2a3 3 0 00-3 3v2m8-3a7 7 0 10-14 0h14z"></path></svg>
             </div>
@@ -23,7 +23,7 @@ const Features = () => {
             Instantly improve your chances of being selected for an interview by optimizing your resume with keywords from the job description.
           </p>
 
-          {/* 模拟内容卡片 */}
+
           <div className="bg-gray-800 p-6 rounded-lg shadow-xl">
             <div className="text-sm font-medium text-green-400 mb-3">
               Great work! You're ranking well for these keywords in the job description:
@@ -41,7 +41,7 @@ const Features = () => {
         {/* --- 功能模块 2: AI Content Writer --- */}
         <div className="flex flex-col">
           <div className="flex items-center mb-4">
-            {/* 模拟图标 */}
+
             <div className="p-3 rounded-full bg-green-700/50 mr-4">
               <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
             </div>
@@ -65,7 +65,7 @@ const Features = () => {
         {/* --- 功能模块 3: Design Control --- */}
         <div className="flex flex-col">
           <div className="flex items-center mb-4">
-            {/* 模拟图标 */}
+
             <div className="p-3 rounded-full bg-purple-700/50 mr-4">
               <svg className="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.515-.515 1.348-.515 1.863 0l.51.51c.324.324.77.49 1.226.49h1.016c.86 0 1.558.698 1.558 1.558v1.016c0 .456.166.902.49 1.226l.51.51c.515.515.515 1.348 0 1.863l-.51.51c-.324.324-.49.77-.49 1.226v1.016c0 .86-.698 1.558-1.558 1.558h-1.016c-.456 0-.902.166-1.226.49l-.51.51c-.515.515-1.348.515-1.863 0l-.51-.51c-.324-.324-.77-.49-1.226-.49h-1.016c-.86 0-1.558-.698-1.558-1.558v-1.016c0-.456-.166-.902-.49-1.226l-.51-.51c-.515-.515-.515-1.348 0-1.863l.51-.51c.324-.324.49-.77.49-1.226v-1.016c0-.86.698-1.558 1.558-1.558h1.016c.456 0 .902-.166 1.226-.49l.51-.51z"></path></svg>
             </div>
@@ -75,7 +75,7 @@ const Features = () => {
             Easily design a fully ATS-optimized resume in a few clicks. Choose colors, formatting, font sizing, pictures, and more.
           </p>
 
-          {/* 模拟颜色选择器 */}
+
           <div className="bg-gray-800 p-6 rounded-lg shadow-xl">
             <div className="flex gap-3">
               <div className="w-8 h-8 rounded-full bg-blue-500 border-4 border-white"></div>
@@ -92,7 +92,7 @@ const Features = () => {
         {/* --- 功能模块 4: Resumate Score --- */}
         <div className="flex flex-col">
           <div className="flex items-center mb-4">
-            {/* 模拟图标 */}
+
             <div className="p-3 rounded-full bg-yellow-700/50 mr-4">
               <svg className="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             </div>
@@ -102,7 +102,7 @@ const Features = () => {
             Get your resume rated across 23 key metrics that help you pass Applicant Tracking Systems and impress recruiters.
           </p>
 
-          {/* 模拟内容卡片 */}
+
           <div className="bg-gray-800 p-6 rounded-lg shadow-xl">
             <div className="flex items-center justify-between mb-2">
               <div className="text-sm font-medium text-gray-300">
@@ -112,6 +112,7 @@ const Features = () => {
                 95/100
               </div>
             </div>
+
             {/* 进度条 */}
             <div className="w-full bg-gray-600 rounded-full h-2.5">
               <div
@@ -123,6 +124,16 @@ const Features = () => {
         </div>
 
       </div>
+
+      <div className="w-full max-w-2xl mx-auto pt-20 px-4">
+    <ReactCompareImage 
+        leftImage="/resumebad.jpg" 
+        rightImage="/resumegood.jpg" 
+        // 建议添加一个延迟加载的属性，防止首次渲染阻塞
+        // 这需要组件支持，但您可以手动实现：
+        loading="lazy" 
+    />
+</div>
     </div>
   );
 };
