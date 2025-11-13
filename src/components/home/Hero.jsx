@@ -4,8 +4,10 @@ import TechLogos from './TechLogos.jsx';
 import { Link } from 'react-router-dom';
 
 const Hero = () => {
-  return (
 
+
+  return (
+    
     <div className='mx-auto px-4 py-20 sm:py-28 lg:py-40 border-b border-gray-800 text-center text-white'>
 
 
@@ -30,7 +32,7 @@ const Hero = () => {
 
       {/* 主标题：移动端 4xl，中屏幕 md:text-6xl，大屏幕 lg:text-7xl */}
       <h1 className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 leading-snug sm:leading-tight'>
-        AI-Powered Resumes !!!! <br />
+        AI-Powered Resumes<br />
         <span className='bg-clip-text text-transparent bg-linear-to-r from-blue-500 to-green-500'>
           That Gets You Hired
         </span>

@@ -63,11 +63,11 @@ const FAQ = () => {
                         value="item-3"
                         className='border-b border-gray-700 bg-gray-800 px-4 rounded-lg overflow-hidden'>
                         <AccordionTrigger className='text-lg font-semibold text-white hover:text-blue-400 transition-colors py-4'>
-                            How does Resumate tailor my resume to a specific job description?
+                            How does FairStart tailor my resume to a specific job description?
                         </AccordionTrigger>
                         <AccordionContent className="text-base text-gray-300 pt-2 pb-4">
                             <p className='text-left'>
-                                Resumate uses AI Keyword Targeting to scan the job description for key terms and seamlessly integrates them into your resume. This gives your resume the right focus without keyword stuffing and boosts its ATS compatibility.
+                                FairStart uses AI Keyword Targeting to scan the job description for key terms and seamlessly integrates them into your resume. This gives your resume the right focus without keyword stuffing and boosts its ATS compatibility.
                             </p>
                         </AccordionContent>
                     </AccordionItem>
