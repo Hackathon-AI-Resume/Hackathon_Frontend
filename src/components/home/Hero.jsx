@@ -53,7 +53,7 @@ const Hero = () => {
 
   return (
 
-    <div className='mx-auto px-4 pt-20 sm:py-28 lg:py-40 border-b border-gray-800 text-center text-white'>
+    <div className='mx-auto px-4 pt-20 sm:pt-28 lg:pt-40 border-b border-gray-800 text-center text-white'>
 
 
       <div className='flex justify-center flex-wrap gap-x-3 gap-y-3 mb-8'>
@@ -133,7 +133,7 @@ const Hero = () => {
         </Link>
       </div>
       {/*赞助商*/}
-      <div className="flex mx-auto justify-evenly mt-24 lg:mt-32">
+      <div className="flex mx-auto justify-evenly mt-24 lg:mt-48">
         <a href="https://siliconflow.cn/" target="_blank">
           <img className="w-30 lg:w-40 transition-transform duration-300 
            hover:scale-110 cursor-pointer" src={Siliconflow} alt="Siliconflow Logo" />
