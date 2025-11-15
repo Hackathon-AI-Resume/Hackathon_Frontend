@@ -180,7 +180,7 @@ const DashboardHome = () => {
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm flex items-center gap-2">
                   <Repeat className="w-4 h-4 text-sky-500" />
-                  One job → one optimized resume
+                  One job → One optimized resume
                 </CardTitle>
               </CardHeader>
               <CardContent className="text-xs text-slate-600 space-y-1">

@@ -1,123 +1,124 @@
-🎨 YuKeSong 前端技术架构
+# 🎨 FairStart 前端技术架构
 
-面向求职者的 AI 简历工作台 · 可视化 · 可下载 · 可反馈
+**面向求职者的 AI 简历工作台 · 可视化 · 可下载 · 可反馈**
 
-⚛️ React SPA | 🎭 进度模拟体验优化 | 📄 ATS 友好简历生成 | 🧠 HR 评价式反馈 | 🔐 JWT
+⚛️ React SPA | 🎭 进度模拟优化 | 📄 ATS 友好简历生成  
+🧠 HR 评价式反馈 | 🔐 JWT | 🐳 Docker
 
-<div align="center"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg" width="110"/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="90"/> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/512px-Tailwind_CSS_Logo.svg.png?20230715030042" width="110"/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/axios/axios-plain.svg" width="90"/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original-wordmark.svg" width="110"/> </div>
-🎯 项目简介
+<div align="center">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg" width="110"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="90"/>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/512px-Tailwind_CSS_Logo.svg.png" width="110"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/axios/axios-plain.svg" width="90"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original-wordmark.svg" width="110"/>
+</div>
 
-YuKeSong 是一个 智能化、可视化、可导出 的简历生成与优化平台。
-前端不仅是一个简历表单，而是一个围绕：
+---
 
-“简历录入 → AI 优化 → 反馈可视化 → 导出 PDF/Word”
+# 🎯 项目简介
 
-的完整工作台（Workstation）。
+**FairStart** 是一个 *智能化、可视化、可导出* 的简历生成与优化平台。
 
-✨ 前端核心功能与架构设计
-1️⃣ 双模式简历输入（Form + Upload）
-📌 表单式信息构建
+不同于传统简历填写工具，本项目前端承担完整的简历工作台职责：
 
-用户按模块填写个人信息、教育、经历、项目、技能等
+**“简历录入 → AI 优化 → HR 风格反馈 → 导出 PDF/Word”**
 
-实时校验必填项、长度、格式
+---
 
-自动缓存到 localStorage，避免刷新丢失
+# ✨ 前端核心功能与架构设计
 
-提交后通过 Axios + JWT 调用后端 AI 优化接口
+## 1️⃣ 双模式简历输入（Form + Upload）
 
-后端返回结构化 JSON → 实时渲染
+### 📌 表单式输入模式
+- 分模块填写（个人信息 / 教育 / 经历 / 项目 / 技能）
+- 实时校验格式与长度
+- 自动保存到 `localStorage` 防刷新丢失
+- 使用 Axios + JWT 调用后端 AI 优化接口
+- 后端返回结构化 JSON → 实时渲染
 
-📌 上传简历 + JD 模式
+### 📌 上传简历 + JD 模式
+- 支持上传 PDF / Word
+- 支持直接粘贴 JD 文本
+- 后端多 Agent 工作流自动解析
+- 自动落盘到 UI 中并进入优化流程
 
-支持 PDF/Word 上传
+---
 
-支持 JD 文本粘贴
+## 2️⃣ 自研 ResumePreview（可视化简历预览）
 
-通过 Axios 发送给后端解析 Agent
+基于 **React + Tailwind CSS** 实现：
 
-解析后的结构化数据自动落到 UI 中并进入优化流程
+- 动态渲染后端结构化 JSON
+- 严格符合 **ATS 友好格式**
+- 实时预览，无需重新加载
+- 一键导出 PDF / Word
+- 模块化布局，支持更多模板扩展
+- 打印友好（链接自动转纯文本）
 
-2️⃣ 自研简历预览组件（ResumePreview）
+> **FairStart 前端负责最终简历布局；后端只产出内容。**
 
-基于 React + Tailwind CSS 实现：
+---
 
-根据后端 JSON 动态渲染完整简历
-
-保持层级与格式清晰，严格符合 ATS 适配要求
-
-实时更新（无需页面跳转）
-
-支持一键导出 PDF / Word
-
-模块化布局，可扩展不同模板/主题
-
-🧩 前端在本地渲染最终布局，后端只负责生成内容，不负责展示。
-
-3️⃣ HR Feedback 模块（模拟企业招聘评价）
+## 3️⃣ HR Feedback（模拟 HR 招聘评价）
 
 后端返回：
 
-总体匹配度评分
+- 匹配度评分  
+- 岗位亮点  
+- 潜在风险点  
+- 每条经历的修改建议  
 
-岗位亮点与风险点
+前端呈现：
 
-针对每条经历的修改建议
+- 标签化（如「匹配度高」「需要量化」）  
+- 每条经历逐条点评  
+- Tailwind 模块化 UI  
 
-前端通过卡片式反馈组件展示：
+---
 
-总分 + 标签（如“匹配度高”“可量化增强”）
+## 4️⃣ 非流式 AI 等待体验（Progress Simulation）
 
-每段经历的逐条建议
+AI 优化耗时 2–3 分钟，因此设计：
 
-Tailwind 统一配色与结构分层
+- ✔ 伪进度条（Fake Progress Bar）  
+- ✔ Skeleton UI 骨架屏  
+- ✔ 分阶段提示文案  
+- ✔ 动画增强“反馈感”  
 
-目的是让用户感觉像真实 HR/招人经理给出的反馈，而不是纯 LLM 文本。
+阶段示例：
 
-4️⃣ 非流式的等待体验优化（Progress Simulation）
-
-因为后端处理 2–3 分钟，前端专门设计：
-
-✔️ 模拟进度条（Fake Progress Bar）
-
-阶段显示：
-
+```
 Parsing resume…
-
 Optimizing bullet points…
-
 Evaluating JD fit…
-
 Generating final summary…
+```
 
-✔️ Skeleton UI（骨架屏）
+---
 
-避免空白加载页面
-提高用户体感速度
+# 🧱 技术栈（Tech Stack）
 
-✔️ 动画 + 分阶段文本提示
+| 技术 | 用途 |
+|------|------|
+| React | SPA + 组件化 |
+| Tailwind CSS | 现代化 UI + 响应式布局 |
+| Axios | API 调用、JWT 拦截器 |
+| localStorage + JWT | 认证 + 持久化 |
+| React Router | 路由管理 |
+| Docker | 容器化部署 |
 
-使等待过程具有心理上的“动感反馈”
+---
 
-⚠️ 前端没有使用流式生成，而是用模拟渐进 UI 提升体验。
+# 🔄 前后端交互流程（Mermaid）
 
-🧱 前端技术栈（Tech Stack）
-技术	用途
-React (JavaScript)	SPA 架构、组件化渲染
-Tailwind CSS	现代化 UI、响应式、主题支持
-Axios	API 调用、拦截器、JWT 注入
-JWT + localStorage	前端持久化认证
-React Router	路由跳转
-Local Storage 缓存	自动保存用户输入内容
-Docker	前端容器化部署
-🔄 前后端交互流程（Mermaid 图）
+```mermaid
 graph TB
     U[用户界面<br/>React] --> F1[选择模式<br/>表单 / 上传简历+JD]
 
     F1 --> F2[填写信息或上传文件]
     F2 --> F3[请求 AI 优化]
 
-    F3 --> P[伪进度条<br/>阶段提示 + Skeleton UI]
+    F3 --> P[伪进度条<br/>Skeleton UI]
     F3 --> A[Axios + JWT 调用 FastAPI]
 
     A --> B[后端多 Agent 工作流<br/>LangGraph + DeepSeek + Qwen3]
@@ -126,91 +127,170 @@ graph TB
     C --> V[ResumePreview<br/>实时渲染]
     C --> R[HR Feedback<br/>展示评分]
 
-    V --> D[点击导出 PDF/Word]
+    V --> D[导出 PDF/Word]
     D --> S[后端生成文件 → 前端下载]
+```
 
-⚙️ 前端工程实践
+---
 
-遵循React 设计最佳实践
+# ⚙ 前端工程实践
 
-Axios 拦截器统一处理：
+- React 组件最佳实践  
+- Axios 拦截器：JWT 自动注入 & 错误统一提示  
+- Tailwind 抽象 + 工具类复用  
+- 防重复提交（按钮禁用 + loading）  
+- 自动缓存表单数据（localStorage）
 
-自动附加 JWT token
+---
 
-响应错误统一提示
+# 📄 主要功能模块
 
-布局复用 + Tailwind 工具类抽象
+- 个人信息  
+- 教育背景  
+- 工作经历  
+- 项目经验  
+- 技能（自动格式化）  
+- 证书  
+- 职业总结  
+- HR 风格反馈  
+- 双模式输入（表单/上传）  
+- 一键导出 PDF / Word  
 
-本地缓存
+---
 
-自动保存表单内容
+# 🚀 项目启动（React + Vite）
 
-刷新不丢失
-
-避免重复提交
-
-按钮 disabled
-
-loading 状态管理
-
-📄 主要功能模块
-
-个人信息
-
-教育背景
-
-工作经历
-
-项目经验
-
-技能（自动格式化）
-
-证书
-
-职业总结
-
-一键导出 PDF/Word
-
-HR 评价反馈
-
-撰写/上传简历双模式
-
-🚀 项目启动（React + Vite）
-克隆项目
+```bash
 git clone https://github.com/626-Legendary/ai-resume.git
 cd ai-resume
-
-安装依赖
 npm install
-
-开发环境
 npm run dev
+```
 
-构建生产版本
+构建：
+
+```bash
 npm run build
+```
 
-📦 部署方式
+---
 
-支持：
+# 📦 部署方式
 
-Vercel（推荐）
+支持平台：
 
-Netlify
+- **Vercel（推荐）**
+- Netlify  
+- GitHub Pages  
+- Docker（含 Nginx）  
+- Nginx / Apache  
 
-GitHub Pages
+---
 
-Docker 部署（附带 Nginx 配置）
+# 🔒 数据安全
 
-传统服务器 Nginx / Apache
+- JWT 前端持久化  
+- Axios 自动附加 token  
+- 严格字段校验  
+- 默认：只存浏览器本地，不上传服务器  
+- 可选：后端启用 HTTPS + 数据清理策略  
 
-（已自动合并你原文中的所有部署内容）
+---
 
-🔒 数据安全
+# 📁 项目结构（关键文件）
 
-JWT 前端持久化
+```
+src/
+  components/dashboard/
+    DashboardCreate.jsx      # 主流程 + export + print
+    ResumePreview.jsx        # 实时预览 + 分页逻辑
+    DashboardEnhance.jsx     # 上传解析 + JD 模式
+  components/home/
+  components/ui/
+  App.jsx
+  main.jsx
+  router.jsx
+vite.config.js
+README.md / README_CN.md
+```
 
-Axios 拦截器自动注入
+---
 
-字段校验确保安全提交
+# 🧬 数据模型（示例）
 
-CORS 配置安全访问
+```json
+{
+  "PersonalInfo": { "firstName": "", "lastName": "", "email": "" },
+  "WorkExperience": [
+    { "jobTitle": "", "company": "", "description": "" }
+  ],
+  "Education": [],
+  "Projects": [],
+  "Skills": "",
+  "Certificates": [],
+  "Summary": ""
+}
+```
+
+数据存储：
+
+```
+localStorage["ai-resume-data"]
+```
+
+---
+
+# 🧩 关键组件职责
+
+### `DashboardCreate.jsx`
+- 多步骤流程  
+- `localStepDataRef` 缓冲输入  
+- 构建 `previewData`  
+- `generateResumeHTML()`  
+- `printResume()`  
+- 自动缓存浏览器  
+
+### `ResumePreview.jsx`
+- 实时渲染  
+- 打印格式优化  
+- DOM 分页算法  
+
+### `DashboardEnhance.jsx`
+- 上传 PDF/DOC  
+- JD 粘贴  
+- 调用 AI（可扩展）
+
+---
+
+# 🛠 关键实现点（可搜索定位）
+
+- HTML 导出：`generateResumeHTML`  
+- 分页逻辑：隐藏 DOM 测量  
+- 打印兼容：链接 → 纯文本  
+
+---
+
+# 🧪 本地开发与调试
+
+```bash
+npm run dev
+npm run build
+npm run preview
+```
+
+---
+
+# 🔐 安全与隐私
+
+- 本地浏览器存储  
+- 可选启用后端 HTTPS  
+- 不做持久化数据保存  
+
+---
+
+# 📌 快速定位（符号索引）
+
+- `DashboardCreate.jsx` → HTML 导出 / 打印  
+- `ResumePreview.jsx` → 分页 / 格式化  
+- `DashboardEnhance.jsx` → 上传解析  
+- `vite.config.js` → 别名配置
