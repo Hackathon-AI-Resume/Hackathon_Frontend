@@ -1,414 +1,213 @@
-# 🎯 AI Resume - Intelligent Resume Generation & Management Platform
-
-A powerful online resume builder with real-time preview, editing, and export capabilities. Built with React + Vite for fast performance and smooth user experience.
-
-**[中文版 README](./README_CN.md)**
-
-## ✨ Key Features
-
-- 📝 **Multi-Section Resume Editing**: Personal info, work experience, education, projects, skills, and certificates
-- 👁️ **Real-Time Preview**: See changes instantly as you edit
-- 🖨️ **Print & Export**: Export to HTML and print to PDF
-- 💾 **Auto-Save**: Browser localStorage automatically saves your data
-- 📱 **Responsive Design**: Works perfectly on all devices and screen sizes
-- 🎨 **Modern UI**: Built with Tailwind CSS and Radix UI components
-- 📄 **Pagination**: Automatically splits content into multiple pages without scrollbars
-
-## 🛠️ Tech Stack
-
-- **Frontend Framework**: React 19.1.1
-- **Build Tool**: Vite 7.1.7
-- **Styling**: Tailwind CSS 4.1.17
-- **UI Components**: Radix UI
-- **Routing**: React Router DOM 7.9.5
-- **Animations**: GSAP, Three.js
-- **Icons**: Lucide Icons
-
-## 📋 Project Structure
-
-```
-ai-resume/
-├── src/
-│   ├── components/
-│   │   ├── dashboard/          # Dashboard components
-│   │   │   ├── DashboardCreate.jsx      # Main resume creation page
-│   │   │   ├── ResumePreview.jsx        # Real-time preview
-│   │   │   ├── PersonalInfoForm.jsx     # Personal info form
-│   │   │   ├── WorkExperienceForm.jsx   # Work experience form
-│   │   │   ├── EducationForm.jsx        # Education form
-│   │   │   ├── ProjectsForm.jsx         # Projects form
-│   │   │   ├── SkillsForm.jsx           # Skills form
-│   │   │   ├── CertificatesForm.jsx     # Certificates form
-│   │   │   └── Summary.jsx              # Summary form
-│   │   ├── home/                        # Home page components
-│   │   └── ui/                          # Reusable UI components
-│   ├── pages/
-│   │   ├── Home.jsx            # Home page
-│   │   └── Dashboard.jsx        # Dashboard page
-│   ├── lib/
-│   ├── hooks/
-│   ├── context/
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── router.jsx
-├── public/                      # Static assets
-├── package.json
-├── vite.config.js
-├── index.html
-└── jsconfig.json
-```
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js 16.0 or higher
-- npm or yarn package manager
-
-### Local Development
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/626-Legendary/ai-resume.git
-   cd ai-resume
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-
-3. **Start development server**
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
-
-   The app will open at `http://localhost:5173` (Vite default port)
-
-4. **Edit code**
-   The project supports HMR (Hot Module Replacement) for instant updates
-
-### Build for Production
-
-```bash
-npm run build
-# or
-yarn build
-```
-
-Output files will be generated in the `dist/` directory.
-
-### Preview Production Build
-
-```bash
-npm run preview
-# or
-yarn preview
-```
-
-## 📦 Deployment Guide
-
-### 1. Vercel Deployment (Recommended) ⭐
-
-**Advantages**: Fast, simple, free, automatic CI/CD
-
-1. Push code to GitHub
-   ```bash
-   git push origin main
-   ```
-
-2. Visit [Vercel](https://vercel.com)
-   - Sign in with GitHub
-   - Click "New Project"
-   - Select your `ai-resume` repository
-   - Click "Deploy"
-
-3. Vercel automatically detects Vite configuration
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-
-**Done!** Your app will be live at a URL like `https://your-project.vercel.app`
-
-### 2. Netlify Deployment
-
-1. Push code to GitHub
-2. Visit [Netlify](https://netlify.com)
-   - Click "Add new site" → "Import an existing project"
-   - Choose GitHub
-   - Select your `ai-resume` repository
-
-3. Configure build settings:
-   - Build command: `npm run build`
-   - Publish directory: `dist`
-   - Click "Deploy site"
-
-### 3. GitHub Pages Deployment
-
-1. Edit `vite.config.js` to add base path:
-   ```javascript
-   export default defineConfig({
-     base: '/ai-resume/', // if your repo name is ai-resume
-     // ... other config
-   });
-   ```
-
-2. Build the project
-   ```bash
-   npm run build
-   ```
-
-3. Push to GitHub
-   ```bash
-   git add .
-   git commit -m "Deploy to GitHub Pages"
-   git push origin main
-   ```
-
-4. In repository settings:
-   - Go to "Settings" → "Pages"
-   - Select "GitHub Actions" as source
-   - Create `.github/workflows/deploy.yml`:
-
-   ```yaml
-   name: Deploy to GitHub Pages
-
-   on:
-     push:
-       branches: [ main ]
-
-   jobs:
-     deploy:
-       runs-on: ubuntu-latest
-       steps:
-         - uses: actions/checkout@v3
-         
-         - name: Setup Node.js
-           uses: actions/setup-node@v3
-           with:
-             node-version: '18'
-         
-         - name: Install dependencies
-           run: npm install
-         
-         - name: Build
-           run: npm run build
-         
-         - name: Deploy
-           uses: peaceiris/actions-gh-pages@v3
-           with:
-             github_token: ${{ secrets.GITHUB_TOKEN }}
-             publish_dir: ./dist
-   ```
-
-5. Push the workflow file, GitHub Actions will deploy automatically
-
-### 4. Docker Deployment
-
-Create `Dockerfile`:
-
-```dockerfile
-# Build stage
-FROM node:18-alpine as build
-
-WORKDIR /app
-
-COPY package.json package-lock.json ./
-RUN npm ci
-
-COPY . .
-RUN npm run build
-
-# Production stage
-FROM nginx:alpine
-
-COPY --from=build /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
-```
-
-Create `nginx.conf`:
-
-```nginx
-server {
-    listen 80;
-    location / {
-        root /usr/share/nginx/html;
-        index index.html index.htm;
-        try_files $uri $uri/ /index.html;
-    }
-}
-```
-
-Build and run:
-
-```bash
-docker build -t ai-resume .
-docker run -p 8080:80 ai-resume
-```
-
-Visit `http://localhost:8080`
-
-### 5. Traditional Server Deployment (Apache, Nginx)
-
-1. Build the project
-   ```bash
-   npm run build
-   ```
-
-2. Upload all files from `dist/` to your server
-
-3. **Nginx Configuration**
-   ```nginx
-   server {
-       listen 80;
-       server_name your-domain.com;
-
-       location / {
-           root /var/www/ai-resume;
-           index index.html;
-           try_files $uri $uri/ /index.html;
-       }
-   }
-   ```
-
-4. **Apache Configuration** (requires mod_rewrite)
-   ```apache
-   <Directory /var/www/ai-resume>
-       RewriteEngine On
-       RewriteBase /
-       RewriteRule ^index\.html$ - [L]
-       RewriteCond %{REQUEST_FILENAME} !-f
-       RewriteCond %{REQUEST_FILENAME} !-d
-       RewriteRule . /index.html [L]
-   </Directory>
-   ```
-
-5. Restart your server
-   ```bash
-   sudo systemctl restart nginx
-   # or
-   sudo systemctl restart apache2
-   ```
-
-## 📝 Available Commands
-
-```bash
-# Development mode
+🎨 YuKeSong Frontend Architecture
+
+AI-powered resume workspace for job seekers · Visual · Downloadable · Actionable Feedback
+
+⚛️ React SPA | 🎭 Simulated Progress UX | 📄 ATS-friendly Resume Generation | 🧠 HR-style Feedback | 🔐 JWT
+
+<div align="center"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg" width="110"/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="90"/> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/512px-Tailwind_CSS_Logo.svg.png?20230715030042" width="110"/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/axios/axios-plain.svg" width="90"/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original-wordmark.svg" width="110"/> </div>
+🎯 Project Overview
+
+YuKeSong is an intelligent, visual, and exportable resume generation and optimization platform.
+The frontend is more than just a resume form—it is a complete workstation built around:
+
+“Resume input → AI optimization → Feedback visualization → Export to PDF/Word”
+
+✨ Core Frontend Features & Architecture
+1️⃣ Dual Input Modes (Form + Upload)
+📌 Structured Form-based Resume Builder
+
+Users fill in modules such as personal info, education, experience, projects, skills, etc.
+
+Real-time validation for required fields, length, and basic formats
+
+Automatic persistence to localStorage to prevent data loss on refresh
+
+On submit, calls backend AI optimization API via Axios + JWT
+
+Backend returns structured JSON → mapped to UI for real-time rendering
+
+📌 Resume + JD Upload Mode
+
+Supports uploading existing PDF/Word resumes
+
+Supports pasting job descriptions (JD) as text
+
+Frontend sends files and JD to backend Agents via Axios
+
+Parsed and optimized structured data is fed directly into the UI and enters the same optimization/feedback flow
+
+2️⃣ Custom Resume Preview Component (ResumePreview)
+
+Built with React + Tailwind CSS:
+
+Dynamically renders a complete resume based on backend JSON
+
+Maintains clear hierarchy and layout, strictly ATS-friendly
+
+Updates in real time (no page reload needed)
+
+Supports one-click export to PDF / Word
+
+Modular layout design, ready for future template/theme expansion
+
+🧩 Final layout is rendered on the frontend; the backend focuses on generating content, not presentation.
+
+3️⃣ HR Feedback Module (Simulated Recruiter Perspective)
+
+Backend returns:
+
+Overall match score
+
+Role highlights and risk points
+
+Suggestions per experience / section
+
+Frontend visualizes these via a card-based feedback component:
+
+Top-level overall score + tags (e.g., “Highly matched”, “Needs more quantification”)
+
+Section-level suggestions under each experience entry
+
+Tailwind-driven color system and visual hierarchy for readability
+
+Goal: make users feel like they’re receiving feedback from a real HR / Hiring Manager, rather than raw LLM output.
+
+4️⃣ Non-streaming Waiting Experience Optimization (Progress Simulation)
+
+Because backend processing takes about 2–3 minutes, the frontend is designed to smooth out the waiting experience:
+
+✔️ Simulated Progress Bar (Fake Progress Bar)
+
+Progress stages:
+
+Parsing resume…
+
+Optimizing bullet points…
+
+Evaluating JD fit…
+
+Generating final summary…
+
+✔️ Skeleton UI
+
+Avoids blank loading screens
+
+Improves perceived responsiveness
+
+✔️ Animations + Step-wise Status Text
+
+Provides psychological feedback and a sense of motion during waiting
+
+⚠️ The frontend does not use true streaming responses; it uses simulated progressive UI to improve user experience.
+
+🧱 Frontend Tech Stack
+Technology	Purpose
+React (JavaScript)	SPA architecture, component-based rendering
+Tailwind CSS	Modern UI, responsive layout, theming
+Axios	API calls, interceptors, JWT injection
+JWT + localStorage	Frontend auth persistence
+React Router	Client-side routing
+LocalStorage cache	Auto-saving user input
+Docker	Containerized frontend deployment
+🔄 Frontend–Backend Interaction Flow (Mermaid)
+graph TB
+    U[User Interface<br/>React] --> F1[Select Mode<br/>Form / Upload Resume + JD]
+
+    F1 --> F2[Fill in data or upload files]
+    F2 --> F3[Trigger AI optimization]
+
+    F3 --> P[Fake progress bar<br/>Step messages + Skeleton UI]
+    F3 --> A[Axios + JWT calls FastAPI]
+
+    A --> B[Backend multi-agent workflow<br/>LangGraph + DeepSeek + Qwen3]
+    B --> C[Returns structured JSON<br/>Resume + score + suggestions]
+
+    C --> V[ResumePreview<br/>Real-time rendering]
+    C --> R[HR Feedback<br/>Display score and hints]
+
+    V --> D[Click export PDF/Word]
+    D --> S[Backend generates file → Frontend downloads]
+
+⚙️ Frontend Engineering Practices
+
+Follows React best practices for component design and state management
+
+Axios interceptors for:
+
+Auto-attaching JWT token
+
+Unified error handling and user-friendly messaging
+
+Layout reuse + Tailwind utility classes and abstraction to reduce duplication
+
+Local caching:
+
+Automatically saves form contents
+
+Restores user data after refresh
+
+Prevents duplicate submissions:
+
+Buttons enter disabled state
+
+Clear loading indicators and request state management
+
+📄 Main Functional Modules
+
+Personal Information
+
+Education
+
+Work Experience
+
+Project Experience
+
+Skills (auto formatting)
+
+Certifications
+
+Professional Summary
+
+One-click export to PDF/Word
+
+HR-style feedback view
+
+Dual-mode resume creation: form-based and upload-based
+
+🚀 Getting Started (React + Vite)
+Clone the repo
+git clone https://github.com/626-Legendary/ai-resume.git
+cd ai-resume
+
+Install dependencies
+npm install
+
+Run in development mode
 npm run dev
 
-# Production build
+Build for production
 npm run build
 
-# Linting
-npm run lint
+📦 Deployment Options
 
-# Preview build
-npm run preview
-```
+Supported deployment methods:
 
-## 🔒 Data Security
+Vercel (recommended)
 
-- All data is stored in browser's localStorage
-- No server communication (completely offline capable)
-- Your data never leaves your device
+Netlify
 
-## 🤝 Features Overview
+GitHub Pages
 
-### Personal Information
-- Name, job title, location
-- Contact: phone, email, LinkedIn, portfolio, etc.
+Docker deployment (with Nginx config)
 
-### Work Experience
-- Position, company, date range
-- Work location
-- Description (multi-line support)
+Traditional servers using Nginx / Apache
 
-### Education
-- School, degree, field of study
-- Study period
-- GPA (optional)
-- City and country
+🔒 Data Security
 
-### Projects
-- Project name and link
-- Date range
-- Organization
-- Description
+JWT-based frontend auth persistence
 
-### Skills
-- Multi-line input support
-- Auto-formatted (separated by |)
+Axios interceptors auto-inject tokens
 
-### Certificates
-- Certificate name
-- Issuing organization
-- Issue date
-- Credential ID and URL
+Frontend validation before submission
 
-### Summary
-- Free-form professional summary
-- Multi-line support
-
-## 🎨 Customization
-
-### Change Color Theme
-
-Edit `src/index.css` or Tailwind configuration to customize colors.
-
-### Modify Resume Style
-
-Edit styles in `src/components/dashboard/ResumePreview.jsx`.
-
-## 🐛 Troubleshooting
-
-### Port Already in Use
-
-```bash
-# Specify a different port
-npm run dev -- --port 3000
-```
-
-### Dependency Installation Failed
-
-```bash
-# Clear cache and reinstall
-npm cache clean --force
-npm install
-```
-
-### Build Failed
-
-```bash
-# Delete node_modules and package-lock.json, then reinstall
-rm -rf node_modules package-lock.json
-npm install
-npm run build
-```
-
-## 📞 Support & Feedback
-
-Please submit issues and pull requests for bug reports and feature requests.
-
-## 📄 License
-
-MIT License - See LICENSE file for details
-
-## 🙏 Acknowledgments
-
-Thanks to all the open-source project contributors:
-
-- [React](https://react.dev)
-- [Vite](https://vitejs.dev)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Radix UI](https://www.radix-ui.com)
-
----
-
-**Happy coding!** 🚀
+Proper CORS configuration for secure access

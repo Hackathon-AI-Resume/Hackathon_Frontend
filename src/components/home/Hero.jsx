@@ -3,6 +3,7 @@ import { Button } from '../ui/button.jsx';
 import TechLogos from './TechLogos.jsx';
 import { Link } from 'react-router-dom';
 import Siliconflow from '../../assets/siliconflow.svg'
+import SiliconFlowTextLogo from "../../assets/tools/siliconflowtext.png";
 import Gemini from '../../assets/gemini.svg'
 
 const Hero = () => {
@@ -140,7 +141,7 @@ const Hero = () => {
         </a>
         <a href="https://gemini.google.com/" target="_blank">
           <img className="w-30 lg:w-40 transition-transform duration-300 
-           hover:scale-110 cursor-pointer" src={Gemini} alt="Siliconflow Logo" />
+           hover:scale-110 cursor-pointer" src={Gemini} alt="Gemini Logo" />
         </a>
       </div>
       
