@@ -1,7 +1,13 @@
 {
-  "name": "ai-resume",
+  "name": "fairstart-ai-resume",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "FairStart is an AI-powered resume creation and optimization platform featuring ATS-friendly preview, AI enhancement, HR-style feedback, and multi-agent workflows.",
+  "authors": [
+  { "name": "Zexiang Zhang" },
+  { "name": "Yanfeng Tan" },
+  { "name": "Chunyu Huang" }
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
