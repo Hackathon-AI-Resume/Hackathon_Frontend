@@ -518,7 +518,7 @@ const formatText = (text) => {
 };
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
-console.log('API_BASE:', API_BASE);
+// console.log('API_BASE:', API_BASE);
 
 const DashboardEnhance = () => {
   const [activeStep, setActiveStep] = useState(STEP_UPLOAD);

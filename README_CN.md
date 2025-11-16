@@ -23,6 +23,30 @@
 
 **“简历录入 → AI 优化 → HR 风格反馈 → 导出 PDF/Word”**
 
+<p align="center">
+  <table>
+    <tr>
+      <td align="center" style="padding: 8px;">
+        <img src="./public/mashups.png" alt="FairStart Product Overview" style="width: 95%; max-width: 360px; border-radius: 8px;"/>
+        <div style="font-size: 12px; color: #666; margin-top: 4px;">
+          FairStart product overview
+        </div>
+      </td>
+      <td align="center" style="padding: 8px;">
+        <img src="./public/fetures.png" alt="Feature Highlights" style="width: 95%; max-width: 360px; border-radius: 8px;"/>
+        <div style="font-size: 12px; color: #666; margin-top: 4px;">
+          Feature highlights & capabilities
+        </div>
+      </td>
+      <td align="center" style="padding: 8px;">
+        <img src="./public/introduction.png" alt="Resume Builder Intro" style="width: 95%; max-width: 360px; border-radius: 8px;"/>
+        <div style="font-size: 12px; color: #666; margin-top: 4px;">
+          Guided resume builder introduction
+        </div>
+      </td>
+    </tr>
+  </table>
+</p>
 ---
 
 # ✨ 前端核心功能与架构设计

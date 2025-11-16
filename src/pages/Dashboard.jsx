@@ -18,6 +18,8 @@ import { Routes, Route } from "react-router-dom";
 import DashboardHome from '@/components/dashboard/DashboardHome'
 import DashboardCreate from '@/components/dashboard/DashboardCreate'
 import DashboardEnhance from '@/components/dashboard/DashboardEnhance'
+import DashboardChangelog from '@/components/dashboard/DashboardChangelog'
+
 const Dashboard = () => {
   return (
     <SidebarProvider>
@@ -54,6 +56,7 @@ const Dashboard = () => {
           <Route path="/" element={<DashboardHome />} />
           <Route path="create" element={<DashboardCreate />} />
           <Route path="enhance" element={<DashboardEnhance />} />
+          <Route path="changelog" element={<DashboardChangelog />} />
         </Routes>
         {/* <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           <div className="grid auto-rows-min gap-4 md:grid-cols-3">

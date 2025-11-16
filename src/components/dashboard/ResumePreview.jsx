@@ -261,8 +261,8 @@ const ResumePreviewComponent = ({ data }) => {
       pdf.save('resume.pdf');
       document.body.removeChild(iframe);
     } catch (err) {
-      console.error('PDF 导出失败:', err);
-      alert('导出 PDF 失败，请查看控制台错误信息。');
+      console.error('Export PDF failed:', err);
+      alert('Export PDF failed, please check the console for errors.');
     }
   };
 

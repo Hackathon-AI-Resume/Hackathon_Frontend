@@ -9,7 +9,7 @@ import InsomniaLogo from "../../assets/tools/insomnia.svg";
 import LangchainLogo from "../../assets/tools/langchain.png";
 import LanggraphLogo from "../../assets/tools/langgraph.png";
 import LangsmithLogo from "../../assets/tools/langsmith.png";
-import LinuxLogo from "../../assets/tools/linux.svg";
+import LinuxLogo from "../../assets/tools/ubuntu.png";
 import PostgresqlLogo from "../../assets/tools/postgresql.svg";
 import PydanticAiLogo from "../../assets/tools/pydanticai.svg";
 import PythonLogo from "../../assets/tools/python.svg";
@@ -19,6 +19,7 @@ import TailwindLogo from "../../assets/tools/tailwindcss.svg";
 import DockerLogo from "../../assets/tools/docker.svg";
 import VercelLogo from "../../assets/tools/vercel.png";
 import SiliconFlowLogo from "../../assets/tools/siliconflow.png";
+import GitLogo from "../../assets/tools/git.png";
 
 
 const tools = [
@@ -32,10 +33,11 @@ const tools = [
   { name: "SiliconFlow", logo: SiliconFlowLogo },
    { name: "DeepSeek", logo: DeepseekLogo },
   { name: "PostgreSQL", logo: PostgresqlLogo },
+    { name: "Git", logo: GitLogo },
   { name: "AWS", logo: AwsLogo },
   { name: "Vercel", logo: VercelLogo },
   { name: "Docker", logo: DockerLogo },
-  { name: "Linux", logo: LinuxLogo },
+  { name: "Ubuntu", logo: LinuxLogo },
   { name: "Insomnia", logo: InsomniaLogo },
   { name: "Figma", logo: FigmaLogo },
   { name: "Pydantic AI", logo: PydanticAiLogo },

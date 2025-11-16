@@ -8,6 +8,8 @@
 > 📌 **For Chinese Version:**  
 > 👉 [点击查看中文版 README](/README_CN.md)
 
+
+
 <div align="center">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg" width="110"/>
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="90"/>
@@ -26,6 +28,30 @@ Unlike traditional resume forms, FairStart’s frontend acts as a **full-feature
 
 **“Resume Input → AI Optimization → HR-style Feedback → PDF/Word Export”**
 
+<p align="center">
+  <table>
+    <tr>
+      <td align="center" style="padding: 8px;">
+        <img src="./public/mashups.png" alt="FairStart Product Overview" style="width: 95%; max-width: 360px; border-radius: 8px;"/>
+        <div style="font-size: 12px; color: #666; margin-top: 4px;">
+          FairStart product overview
+        </div>
+      </td>
+      <td align="center" style="padding: 8px;">
+        <img src="./public/fetures.png" alt="Feature Highlights" style="width: 95%; max-width: 360px; border-radius: 8px;"/>
+        <div style="font-size: 12px; color: #666; margin-top: 4px;">
+          Feature highlights & capabilities
+        </div>
+      </td>
+      <td align="center" style="padding: 8px;">
+        <img src="./public/introduction.png" alt="Resume Builder Intro" style="width: 95%; max-width: 360px; border-radius: 8px;"/>
+        <div style="font-size: 12px; color: #666; margin-top: 4px;">
+          Guided resume builder introduction
+        </div>
+      </td>
+    </tr>
+  </table>
+</p>
 ---
 
 # ✨ Core Frontend Features & Architecture

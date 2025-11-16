@@ -47,7 +47,7 @@ const navConfig = {
       icon: BookOpen,
       items: [
         { title: "Get Started", url: "/dashboard" },
-        { title: "Changelog", url: "#" },
+        { title: "Changelog", url: "/dashboard/changelog" },
       ],
     },
   ],

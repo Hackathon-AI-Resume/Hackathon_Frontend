@@ -1,7 +1,7 @@
 import React from 'react'
 import ChromaGrid from '../ui/chroma-grid.jsx'
 import { Linkedin } from "lucide-react";
-import Yanyi from '../../assets/team/yanyi.jpg'
+// import Yanyi from '../../assets/team/yanyi.jpg'
 import Zexaing from '../../assets/team/zexiang.jpg'
 import Yanfeng from '../../assets/team/yanfeng.jpg'
 import TextType from '../ui/text-type.jsx';
@@ -29,15 +29,15 @@ const Team = () => {
       gradient: "linear-gradient(210deg, #50E3C2, #000)",
       url: "https://www.linkedin.com/in/yanfeng-tan/"
     },
-    {
-      image: Yanyi,
-      title: "Yanyi He",
-      subtitle: "Machine Learning Engineer",
-      handle: "@Ashley",
-      borderColor: "#EB4D8A",
-      gradient: "linear-gradient(165deg, #EB4D8A, #000)",
-      url: "https://www.linkedin.com/in/yanyi-he-76b730328/"
-    },
+    // {
+    //   image: Yanyi,
+    //   title: "Yanyi He",
+    //   subtitle: "Machine Learning Engineer",
+    //   handle: "@Ashley",
+    //   borderColor: "#EB4D8A",
+    //   gradient: "linear-gradient(165deg, #EB4D8A, #000)",
+    //   url: "https://www.linkedin.com/in/yanyi-he-76b730328/"
+    // },
     {
       image: "https://media.licdn.com/dms/image/v2/D5603AQGbVpJCOHkTbg/profile-displayphoto-shrink_200_200/B56ZOS76xZGoAY-/0/1733337001452?e=1764201600&v=beta&t=emPCk9ybTFB-Ryg1dcS-brKMfo43KXoSPEQKpETqyAw",
       title: "Chunyu Huang",
@@ -60,7 +60,7 @@ const Team = () => {
       <div className=' text-gray-400 mb-8 max-w-4xl mx-auto text-center'>
         <TextType
           text={[
-            "We are a cross-functional squad of four.",
+            "We are a cross-functional squad of three.",
             "We thrive on rapid iteration and creative problem-solving.",
             "Our mission: to combine full-stack efficiency, robust backend architecture, and advanced machine learning.",
             "The result — seamless, stable, and innovative products."
