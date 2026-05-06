@@ -114,8 +114,95 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-family: "Aptos", "Segoe UI Variable Text", "Segoe UI", "Trebuchet MS", sans-serif;
+  }
+}
+
+@layer components {
+  .home-shell {
+    @apply relative min-h-screen overflow-hidden text-white;
+    background:
+      radial-gradient(circle at top left, rgba(45, 212, 191, 0.18), transparent 28%),
+      radial-gradient(circle at 84% 12%, rgba(59, 130, 246, 0.18), transparent 24%),
+      linear-gradient(180deg, #06101d 0%, #081422 44%, #070d18 100%);
+  }
+
+  .home-shell::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent 78%);
+    opacity: 0.25;
+  }
+
+  .home-shell::after {
+    content: "";
+    position: absolute;
+    right: -8rem;
+    bottom: 8rem;
+    width: 24rem;
+    height: 24rem;
+    border-radius: 9999px;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(45, 212, 191, 0.2), transparent 70%);
+    filter: blur(24px);
+    opacity: 0.9;
+  }
+
+  .home-container {
+    @apply relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .home-section {
+    @apply relative border-b border-white/10 py-20 sm:py-24 lg:py-32;
+  }
+
+  .home-panel {
+    @apply rounded-[28px] border border-white/10 bg-slate-950/55 backdrop-blur-xl;
+    box-shadow: 0 24px 80px rgba(2, 12, 27, 0.55);
+  }
+
+  .home-panel-soft {
+    @apply rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl;
+    box-shadow: 0 20px 60px rgba(2, 12, 27, 0.35);
+  }
+
+  .home-kicker {
+    @apply inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-cyan-100;
+  }
+
+  .home-title {
+    @apply mt-5 text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl;
+  }
+
+  .home-subtitle {
+    @apply mt-4 text-base leading-7 text-slate-300 sm:text-lg;
+  }
+
+  .home-section-title {
+    @apply text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl;
+  }
+
+  .home-section-copy {
+    @apply mt-4 text-base leading-7 text-slate-300 sm:text-lg;
+  }
+
+  .home-chip {
+    @apply inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200;
+  }
+
+  .home-stat {
+    @apply flex min-w-[140px] flex-col rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-left;
   }
 }
 

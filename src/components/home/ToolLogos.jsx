@@ -1,6 +1,5 @@
-// src/components/your-path/ToolLogos.jsx
 import React from "react";
-
+import SectionIntro from "./SectionIntro.jsx";
 import AwsLogo from "../../assets/tools/aws.png";
 import DeepseekLogo from "../../assets/tools/deepseek.svg";
 import FastapiLogo from "../../assets/tools/fastapi.svg";
@@ -21,7 +20,6 @@ import VercelLogo from "../../assets/tools/vercel.png";
 import SiliconFlowLogo from "../../assets/tools/siliconflow.png";
 import GitLogo from "../../assets/tools/git.png";
 
-
 const tools = [
   { name: "React", logo: ReactLogo },
   { name: "Tailwind CSS", logo: TailwindLogo },
@@ -31,9 +29,9 @@ const tools = [
   { name: "LangGraph", logo: LanggraphLogo },
   { name: "LangSmith", logo: LangsmithLogo },
   { name: "SiliconFlow", logo: SiliconFlowLogo },
-   { name: "DeepSeek", logo: DeepseekLogo },
+  { name: "DeepSeek", logo: DeepseekLogo },
   { name: "PostgreSQL", logo: PostgresqlLogo },
-    { name: "Git", logo: GitLogo },
+  { name: "Git", logo: GitLogo },
   { name: "AWS", logo: AwsLogo },
   { name: "Vercel", logo: VercelLogo },
   { name: "Docker", logo: DockerLogo },
@@ -44,62 +42,46 @@ const tools = [
   { name: "Raspberry Pi", logo: RaspberryPiLogo },
 ];
 
+const stackPillars = ["Frontend", "LLM orchestration", "Infra and data"];
+
 const ToolLogos = () => {
   return (
-    <div className="py-10 px-4 lg:p-20 border-b border-gray-800">
+    <section id="stackSection" className="home-section">
+      <div className="home-container">
+        <SectionIntro
+          eyebrow="Stack"
+          title="Built with a modern product and AI delivery stack"
+          description="The product experience is backed by frontend polish, orchestration tooling, and deployment infrastructure chosen for iteration speed and production reliability."
+        />
 
-      <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4">
-        Our Tech Stack
-      </h2>
+        <div className="mb-8 flex flex-wrap justify-center gap-3">
+          {stackPillars.map((pillar) => (
+            <span key={pillar} className="home-chip">
+              {pillar}
+            </span>
+          ))}
+        </div>
 
-      <div
-        className="
-          mt-12
-          grid 
-          grid-cols-3 
-          sm:grid-cols-4 
-          md:grid-cols-8
-          lg:grid-cols-10
-          gap-4 
-          sm:gap-6 
-          place-items-center
-        "
-      >
-        {tools.map((tool) => (
-          <div
-            key={tool.name}
-            className="
-              flex flex-col items-center justify-center 
-              gap-2 
-              text-[10px] sm:text-xs md:text-sm 
-              text-gray-400
-            "
-          >
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+          {tools.map((tool) => (
             <div
-              className="
-                flex items-center justify-center
-                w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 
-                rounded-xl 
-
-                border-2 border-gray-400
-                shadow-lg
-                hover:border-blue-400
-                hover:shadow-sky-500/40 
-                transition
-              "
+              key={tool.name}
+              className="home-panel-soft flex min-h-[132px] flex-col items-center justify-center gap-3 p-5 text-center transition duration-300 hover:-translate-y-1 hover:border-cyan-300/30 hover:bg-white/8"
             >
-              <img
-                src={tool.logo}
-                alt={`${tool.name} logo`}
-                className="w-8 h-8 sm:w-9 sm:h-9 object-contain"
-                loading="lazy"
-              />
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-slate-950/70">
+                <img
+                  src={tool.logo}
+                  alt={`${tool.name} logo`}
+                  className="h-9 w-9 object-contain"
+                  loading="lazy"
+                />
+              </div>
+              <p className="text-sm font-medium text-slate-200">{tool.name}</p>
             </div>
-            <p className="text-center leading-tight">{tool.name}</p>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

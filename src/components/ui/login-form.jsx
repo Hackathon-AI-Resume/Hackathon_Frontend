@@ -1,13 +1,7 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import {
   Field,
   FieldDescription,
@@ -15,117 +9,148 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/Fs_b.png";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/auth-context";
+
+const EMPTY_ERROR_SLOT = "\u00A0";
 
 export default function LoginForm({ className, ...props }) {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { signIn } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const clearErrorOnChange = (setter) => (event) => {
+    setter(event.target.value);
+    if (error) setError("");
+  };
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
+    if (submitting) return;
+
     setError("");
+    setSubmitting(true);
 
     try {
-      setSubmitting(true);
-      const loginUrl = import.meta.env.VITE_API_LOGIN_URL;
-      //console.log("loginUrl", loginUrl);
-      const res = await fetch(loginUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+      await signIn({
+        email: email.trim(),
+        password,
       });
 
-      if (!res.ok) {
-        let msg = `Login failed: ${res.status}`;
-        try {
-          const data = await res.json();
-          if (Array.isArray(data.detail)) msg = data.detail.map(d => d.msg).join("; ");
-          else if (data.detail) msg = data.detail;
-        } catch {}
-        throw new Error(msg);
-      }
-
-      const data = await res.json();
-      login({ user: data.user, token: data.token });
-
       navigate("/dashboard");
-    } catch (err) {
-      if (err.message == "Invalid credentials"){
-        setError("The Username or Password is Incorrect. Try again.");
-      }else{
-        setError(err.message || "Unknown error");
-      }
-      
+    } catch (authError) {
+      setError(authError.message);
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10
-      bg-gray-50/50 dark:bg-gray-950 
-      bg-linear-to-br from-gray-50/50 to-white 
-      dark:bg-linear-to-br dark:from-gray-950 dark:to-gray-900">
+    <div className="flex min-h-svh w-full items-center justify-center bg-linear-to-br from-slate-50 via-white to-slate-100 px-6 py-10">
+      <div className="w-full max-w-md">
+        <div
+          className={cn(
+            "rounded-[28px] border border-slate-200/80 bg-white/92 p-8 shadow-lg shadow-slate-200/40 backdrop-blur sm:p-10",
+            className
+          )}
+          {...props}
+        >
+          <div className="mb-8 flex items-center gap-3">
+            <Link to="/" className="shrink-0 transition hover:opacity-85">
+              <img
+                src={Logo}
+                alt="FairStart logo"
+                className="h-10 w-10 object-contain"
+              />
+            </Link>
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">
+                FairStart
+              </p>
+              <p className="text-xs text-slate-400">Resume project demo</p>
+            </div>
+          </div>
 
-      <div className="w-full max-w-sm">
-        <div className={cn("flex flex-col gap-6", className)} {...props}>
-          <Card className="shadow-2xl shadow-gray-300/50 dark:shadow-black/70 backdrop-blur-sm">
+          <div className="mb-8 space-y-3">
+            <h1 className="text-3xl font-semibold tracking-tight text-slate-950">
+              Log in
+            </h1>
+            <p className="text-sm leading-6 text-slate-500 sm:text-[15px]">
+              Continue working on your resume and review your saved progress.
+            </p>
+          </div>
 
-            <CardHeader>
-              <div className="flex items-center justify-between mb-6">
-                <Link to="/"><img src={Logo} className="w-10 h-10 object-cover" /></Link>
-                <h2 className="text-xl font-bold text-blue-400 tracking-wider">FairStart</h2>
-              </div>
+          <form onSubmit={handleLogin} noValidate>
+            <FieldGroup className="gap-5">
+              <Field>
+                <FieldLabel htmlFor="login-email">Email</FieldLabel>
+                <Input
+                  id="login-email"
+                  type="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={clearErrorOnChange(setEmail)}
+                  disabled={submitting}
+                  required
+                  aria-invalid={!!error}
+                  className="h-11 rounded-xl border-slate-300 bg-white"
+                />
+              </Field>
 
-              <CardTitle>Login to your account</CardTitle>
-              <CardDescription>Enter your email below to login to your account</CardDescription>
-            </CardHeader>
+              <Field>
+                <FieldLabel htmlFor="login-password">Password</FieldLabel>
+                <Input
+                  id="login-password"
+                  type="password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={clearErrorOnChange(setPassword)}
+                  disabled={submitting}
+                  required
+                  aria-invalid={!!error}
+                  className="h-11 rounded-xl border-slate-300 bg-white"
+                />
+              </Field>
 
-            <CardContent>
-              <form onSubmit={handleLogin}>
-                <FieldGroup>
-                  <Field>
-                    <FieldLabel>Email</FieldLabel>
-                    <Input value={email} onChange={e => setEmail(e.target.value)} type="email" required />
-                  </Field>
+              <p
+                role={error ? "alert" : undefined}
+                aria-live="polite"
+                className={cn(
+                  "min-h-5 text-sm leading-5 transition-colors",
+                  error ? "text-red-600" : "text-transparent"
+                )}
+              >
+                {error || EMPTY_ERROR_SLOT}
+              </p>
 
-                  <Field>
-                    <div className="flex items-center">
-                      <FieldLabel>Password</FieldLabel>
-                      <a href="#" className="ml-auto text-sm text-primary underline-offset-4 hover:underline">
-                        Forgot your password?
-                      </a>
-                    </div>
-                    <Input value={password} onChange={e => setPassword(e.target.value)} type="password" required />
-                  </Field>
+              <Field className="gap-4">
+                <Button
+                  type="submit"
+                  disabled={submitting}
+                  className="h-11 rounded-full bg-slate-950 text-white hover:bg-slate-800"
+                >
+                  {submitting ? "Logging in..." : "Log in"}
+                </Button>
 
-                  {error && <p className="text-red-500 text-xs ">{error}</p>}
-
-                  <Field>
-                    <Button type="submit" disabled={submitting}>
-                      {submitting ? "Logging in..." : "Login"}
-                    </Button>
-
-                    <FieldDescription className="text-center">
-                      Don&apos;t have an account?{" "}
-                      <Link to="/signup" className="text-primary hover:underline">Sign up</Link>
-                    </FieldDescription>
-                  </Field>
-                </FieldGroup>
-              </form>
-            </CardContent>
-
-          </Card>
+                <FieldDescription className="text-center text-sm text-slate-500">
+                  Don&apos;t have an account?{" "}
+                  <Link
+                    to="/signup"
+                    className="font-medium text-slate-800 hover:text-black"
+                  >
+                    Sign up
+                  </Link>
+                </FieldDescription>
+              </Field>
+            </FieldGroup>
+          </form>
         </div>
       </div>
-
     </div>
   );
 }

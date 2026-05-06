@@ -26,25 +26,24 @@ const techLogos = [
 
 
 function TechLogos() {
-    return (
-        <div style={{ height: '80px', position: 'relative', overflow: 'hidden' }}>
-            {/* Basic horizontal loop */}
-            <LogoLoop
-                logos={techLogos}
-                speed={40}
-                direction="left"
-                logoHeight={48}
-                gap={100}
-                hoverSpeed={0}
-                scaleOnHover
-                fadeOut
-                fadeOutColor="#131827"
-                ariaLabel="Technology Company Logos"
-            />
-
-
-        </div>
-    );
+  return (
+    <div className="relative w-full overflow-hidden text-slate-500">
+      <LogoLoop
+        logos={techLogos}
+        speed={40}
+        direction="right"
+        width="100%"
+        logoHeight={40}
+        gap={88}
+        hoverSpeed={0}
+        scaleOnHover
+        fadeOut
+        fadeOutColor="#0d1727"
+        ariaLabel="Technology company logos"
+        className="w-full text-slate-500"
+      />
+    </div>
+  );
 }
 
 export default TechLogos;

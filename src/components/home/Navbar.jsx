@@ -1,23 +1,35 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  ArrowUpRight,
+  Github,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  Sparkles,
+  X,
+} from "lucide-react";
 import Logo from "../../assets/Fs_w.png";
-import { Github, Menu, X, LogOut } from "lucide-react";
 import { Button } from "../ui/button";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/auth-context";
+
+const navLinks = [
+  { name: "Workflow", href: "#featuresSection" },
+  { name: "Stack", href: "#stackSection" },
+  { name: "Team", href: "#teamSection" },
+  { name: "FAQ", href: "#faqSection" },
+];
+
+const navLinkClass =
+  "text-sm font-medium text-slate-300 transition hover:text-white";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-
   const { isAuthenticated, logout, loading, user } = useAuth();
 
-  const toggleMenu = useCallback(() => {
-    setIsMenuOpen((prev) => !prev);
-  }, []);
-
-  const closeMenu = useCallback(() => {
-    setIsMenuOpen(false);
-  }, []);
+  const closeMenu = () => setIsMenuOpen(false);
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
   const handleLogout = () => {
     logout();
@@ -25,125 +37,124 @@ const Navbar = () => {
     navigate("/login");
   };
 
-  const navLinks = [
-    { name: "Features", href: "#featuresSection" },
-    { name: "Team", href: "#teamSection" },
-  ];
-
-  // loading 时先不要闪现错误状态
   const showAuthUI = !loading;
+  const userLabel = user?.email?.split("@")[0];
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-gray-950/90 backdrop-blur-md shadow-xl border-b border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="flex items-center space-x-2 shrink-0">
-          <img
-            src={Logo}
-            alt="FairStart Logo"
-            className="w-10 h-10 object-cover"
-          />
-          <h2 className="text-xl font-bold text-blue-400 tracking-wider">
-            FairStart
-          </h2>
+    <nav className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur-xl">
+      <div className="home-container flex h-20 items-center justify-between gap-4">
+        <Link
+          to="/"
+          className="flex items-center gap-3 transition hover:opacity-90"
+          onClick={closeMenu}
+        >
+          <span className="flex h-11 w-11 items-center justify-center rounded-2xl shadow-lg shadow-cyan-500/5">
+            <img
+              src={Logo}
+              alt="FairStart logo"
+              className="h-8 w-8 object-contain"
+            />
+          </span>
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-cyan-100">
+              FairStart
+            </p>
+            <p className="text-xs text-slate-400">AI Resume Studio</p>
+          </div>
         </Link>
 
-        {/* Desktop Nav Links */}
-        <div className="hidden md:flex items-center space-x-8 font-medium">
+        <div className="hidden items-center gap-7 lg:flex">
           {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-gray-300 hover:text-blue-400 transition-colors"
-            >
+            <a key={link.name} href={link.href} className={navLinkClass}>
               {link.name}
             </a>
           ))}
-
           <a
             href="https://github.com/Hackathon-AI-Resume"
             target="_blank"
             rel="noreferrer"
-            className="flex items-center text-gray-300 hover:text-blue-400 space-x-1 transition-colors"
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-cyan-300/40 hover:text-white"
           >
-            <Github size={18} />
-            <span>Github</span>
+            <Github className="h-4 w-4" />
+            GitHub
           </a>
         </div>
 
-        {/* Desktop Auth / User */}
-        <div className="hidden md:flex items-center space-x-2">
-          {showAuthUI && !isAuthenticated && (
+        <div className="hidden items-center gap-2 md:flex">
+          {showAuthUI && !isAuthenticated ? (
             <>
-              <Link to="/login">
-                <Button
-                  variant="ghost"
-                  className="text-gray-300 hover:text-blue-400"
-                >
-                  Log in
-                </Button>
-              </Link>
-
-              <Link to="/signup">
-                <Button className="bg-white hover:bg-gray-200 text-gray-900 font-semibold">
-                  Sign up
-                </Button>
-              </Link>
+              <Button
+                asChild
+                variant="ghost"
+                className="rounded-full px-5 text-slate-200 hover:bg-white/10 hover:text-white"
+              >
+                <Link to="/login">Log in</Link>
+              </Button>
+              <Button
+                asChild
+                className="rounded-full border border-cyan-300/20 bg-cyan-300 text-slate-950 shadow-lg shadow-cyan-500/20 hover:bg-cyan-200"
+              >
+                <Link to="/signup">
+                  Start free
+                </Link>
+              </Button>
             </>
-          )}
+          ) : null}
 
-          {showAuthUI && isAuthenticated && (
+          {showAuthUI && isAuthenticated ? (
             <>
-              <Link to="/dashboard">
-                <Button
-                  variant="ghost"
-                  className="text-gray-300 hover:text-blue-400"
-                >
+              {userLabel ? (
+                <span className="hidden rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm text-slate-300 xl:inline-flex">
+                  {userLabel}
+                </span>
+              ) : null}
+              <Button
+                asChild
+                variant="ghost"
+                className="rounded-full px-5 text-slate-200 hover:bg-white/10 hover:text-white"
+              >
+                <Link to="/dashboard">
+                  <LayoutDashboard className="h-4 w-4" />
                   Dashboard
-                </Button>
-              </Link>
-
+                </Link>
+              </Button>
               <Button
                 variant="ghost"
                 onClick={handleLogout}
-                className="bg-white hover:bg-gray-200 text-gray-900 font-semibold"
+                className="rounded-full border border-white/10 bg-white/5 px-4 text-slate-100 hover:bg-white/10 hover:text-white"
               >
-                <LogOut size={18} />
+                <LogOut className="h-4 w-4" />
                 Logout
               </Button>
             </>
-          )}
+          ) : null}
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center">
-          <button
-            type="button"
-            onClick={toggleMenu}
-            className="inline-flex items-center justify-center rounded-md p-1.5 text-gray-300 hover:text-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
-            aria-label="Toggle navigation menu"
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-menu"
-          >
-            {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={toggleMenu}
+          className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-slate-200 transition hover:bg-white/10 md:hidden"
+          aria-label="Toggle navigation menu"
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-menu"
+        >
+          {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
       </div>
 
-      {/* Mobile Dropdown */}
       <div
         id="mobile-menu"
-        className={`md:hidden bg-gray-950 border-t border-gray-800 transition-all duration-300 ease-in-out overflow-hidden ${
-          isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        className={`overflow-hidden border-t border-white/10 bg-slate-950/95 transition-all duration-300 md:hidden ${
+          isMenuOpen ? "max-h-[32rem] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="flex flex-col space-y-3 px-4 sm:px-6 pb-4 pt-3">
+        <div className="home-container flex flex-col gap-3 py-4">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
               onClick={closeMenu}
-              className="text-gray-300 hover:text-blue-400 text-base py-2 transition-colors"
+              className="rounded-2xl border border-transparent px-4 py-3 text-sm font-medium text-slate-200 transition hover:border-white/10 hover:bg-white/5"
             >
               {link.name}
             </a>
@@ -154,54 +165,59 @@ const Navbar = () => {
             target="_blank"
             rel="noreferrer"
             onClick={closeMenu}
-            className="flex items-center text-gray-300 hover:text-blue-400 space-x-2 text-base py-2 transition-colors"
+            className="inline-flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-200"
           >
-            <Github size={20} />
-            <span>Github</span>
+            <span className="inline-flex items-center gap-2">
+              <Github className="h-4 w-4" />
+              GitHub
+            </span>
+            <ArrowUpRight className="h-4 w-4" />
           </a>
 
-          {/* Mobile Auth / User */}
-          {showAuthUI && (
-            <div className="pt-4 flex flex-col space-y-2">
-              {!isAuthenticated ? (
-                <>
-                  <Link to="/login" onClick={closeMenu}>
-                    <Button
-                      variant="ghost"
-                      className="w-full text-gray-300 hover:text-blue-400"
-                    >
-                      Log in
-                    </Button>
-                  </Link>
-
-                  <Link to="/signup" onClick={closeMenu}>
-                    <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold">
-                      Sign up
-                    </Button>
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <Link to="/dashboard" onClick={closeMenu}>
-                    <Button
-                      variant="ghost"
-                      className="w-full text-gray-300 hover:text-blue-400"
-                    >
-                      Dashboard
-                    </Button>
-                  </Link>
-
-                  <Button
-                    onClick={handleLogout}
-                    className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold flex items-center justify-center gap-1"
-                  >
-                    <LogOut size={18} />
-                    Logout
-                  </Button>
-                </>
-              )}
+          {showAuthUI && !isAuthenticated ? (
+            <div className="grid gap-3 pt-2">
+              <Button
+                asChild
+                variant="ghost"
+                className="h-12 rounded-2xl border border-white/10 bg-white/5 text-slate-100 hover:bg-white/10 hover:text-white"
+              >
+                <Link to="/login" onClick={closeMenu}>
+                  Log in
+                </Link>
+              </Button>
+              <Button
+                asChild
+                className="h-12 rounded-2xl border border-cyan-300/20 bg-cyan-300 text-slate-950 hover:bg-cyan-200"
+              >
+                <Link to="/signup" onClick={closeMenu}>
+                  <Sparkles className="h-4 w-4" />
+                  Start free
+                </Link>
+              </Button>
             </div>
-          )}
+          ) : null}
+
+          {showAuthUI && isAuthenticated ? (
+            <div className="grid gap-3 pt-2">
+              <Button
+                asChild
+                variant="ghost"
+                className="h-12 rounded-2xl border border-white/10 bg-white/5 text-slate-100 hover:bg-white/10 hover:text-white"
+              >
+                <Link to="/dashboard" onClick={closeMenu}>
+                  <LayoutDashboard className="h-4 w-4" />
+                  Dashboard
+                </Link>
+              </Button>
+              <Button
+                onClick={handleLogout}
+                className="h-12 rounded-2xl border border-white/10 bg-rose-500/90 text-white hover:bg-rose-500"
+              >
+                <LogOut className="h-4 w-4" />
+                Logout
+              </Button>
+            </div>
+          ) : null}
         </div>
       </div>
     </nav>

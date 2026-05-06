@@ -15,7 +15,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
-import { useAuth } from "../../context/AuthContext"; // 按你的路径调
+import { useAuth } from "../../context/auth-context";
 
 // 静态导航数据（跟用户无关）
 const navConfig = {

@@ -1,12 +1,7 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import {
   Field,
   FieldDescription,
@@ -14,124 +9,187 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/Fs_b.png";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/auth-context";
 
-export default function SignupForm(props) {
+const EMPTY_ERROR_SLOT = "\u00A0";
+
+export default function SignupForm({ className, ...props }) {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { signUp } = useAuth();
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPwd, setConfirmPwd] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSignup = async (e) => {
-    e.preventDefault();
+  const clearErrorOnChange = (setter) => (event) => {
+    setter(event.target.value);
+    if (error) setError("");
+  };
+
+  const handleSignup = async (event) => {
+    event.preventDefault();
+
+    if (submitting) return;
+
     setError("");
 
-    if (password !== confirmPwd) {
+    if (password !== confirmPassword) {
       setError("Passwords do not match.");
       return;
     }
 
+    setSubmitting(true);
+
     try {
-      setSubmitting(true);
-      const signupUrl = import.meta.env.VITE_API_SIGNUP_URL;
-      const res = await fetch(signupUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          password,
-          full_name: fullName, // 如果后端没有这个字段，可以删掉
-        }),
+      await signUp({
+        fullName: fullName.trim(),
+        email: email.trim(),
+        password,
       });
 
-      if (!res.ok) {
-        let msg = `Signup failed: ${res.status}`;
-        try {
-          const data = await res.json();
-          if (Array.isArray(data.detail)) msg = data.detail.map(d => d.msg).join("; ");
-          else if (data.detail) msg = data.detail;
-        } catch {}
-        throw new Error(msg);
-      }
-
-      const data = await res.json();
-      login({ user: data.user, token: data.token });
-
       navigate("/dashboard");
-    } catch (err) {
-      setError(err.message || "Unknown error");
+    } catch (authError) {
+      setError(authError.message);
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10 
-      bg-gray-50/50 dark:bg-gray-950 
-      bg-linear-to-br from-gray-50/50 to-white 
-      dark:bg-linear-to-br dark:from-gray-950 dark:to-gray-900">
-
-      <div className="w-full max-w-sm">
-
-        <Card {...props} className="shadow-2xl shadow-gray-300/50 dark:shadow-black/70 backdrop-blur-sm">
-          <CardHeader>
-            <div className="flex items-center justify-between mb-6">
-              <Link to="/"><img src={Logo} className="w-10 h-10 object-cover" /></Link>
-              <h2 className="text-xl font-bold text-blue-400 tracking-wider">FairStart</h2>
+    <div className="flex min-h-svh w-full items-center justify-center bg-linear-to-br from-slate-50 via-white to-slate-100 px-6 py-10">
+      <div className="w-full max-w-md">
+        <div
+          className={cn(
+            "rounded-[28px] border border-slate-200/80 bg-white/92 p-8 shadow-lg shadow-slate-200/40 backdrop-blur sm:p-10",
+            className
+          )}
+          {...props}
+        >
+          <div className="mb-8 flex items-center gap-3">
+            <Link to="/" className="shrink-0 transition hover:opacity-85">
+              <img
+                src={Logo}
+                alt="FairStart logo"
+                className="h-10 w-10 object-contain"
+              />
+            </Link>
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">
+                FairStart
+              </p>
+              <p className="text-xs text-slate-400">Resume project demo</p>
             </div>
+          </div>
 
-            <CardTitle>Create an account</CardTitle>
-            <CardDescription>Enter your information below to create your account</CardDescription>
-          </CardHeader>
+          <div className="mb-8 space-y-3">
+            <h1 className="text-3xl font-semibold tracking-tight text-slate-950">
+              Create an account
+            </h1>
+            <p className="text-sm leading-6 text-slate-500 sm:text-[15px]">
+              Set up your account and start working through the resume flow.
+            </p>
+          </div>
 
-          <CardContent>
-            <form onSubmit={handleSignup}>
-              <FieldGroup>
-                <Field>
-                  <FieldLabel htmlFor="name">Full Name</FieldLabel>
-                  <Input value={fullName} onChange={e => setFullName(e.target.value)} />
-                </Field>
+          <form onSubmit={handleSignup} noValidate>
+            <FieldGroup className="gap-5">
+              <Field>
+                <FieldLabel htmlFor="signup-name">Full name</FieldLabel>
+                <Input
+                  id="signup-name"
+                  autoComplete="name"
+                  value={fullName}
+                  onChange={clearErrorOnChange(setFullName)}
+                  disabled={submitting}
+                  placeholder="Optional"
+                  aria-invalid={!!error}
+                  className="h-11 rounded-xl border-slate-300 bg-white"
+                />
+              </Field>
 
-                <Field>
-                  <FieldLabel>Email</FieldLabel>
-                  <Input value={email} onChange={e => setEmail(e.target.value)} type="email" required />
-                </Field>
+              <Field>
+                <FieldLabel htmlFor="signup-email">Email</FieldLabel>
+                <Input
+                  id="signup-email"
+                  type="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={clearErrorOnChange(setEmail)}
+                  disabled={submitting}
+                  required
+                  aria-invalid={!!error}
+                  className="h-11 rounded-xl border-slate-300 bg-white"
+                />
+              </Field>
 
-                <Field>
-                  <FieldLabel>Password</FieldLabel>
-                  <Input value={password} onChange={e => setPassword(e.target.value)} type="password" required />
-                </Field>
+              <Field>
+                <FieldLabel htmlFor="signup-password">Password</FieldLabel>
+                <Input
+                  id="signup-password"
+                  type="password"
+                  autoComplete="new-password"
+                  value={password}
+                  onChange={clearErrorOnChange(setPassword)}
+                  disabled={submitting}
+                  required
+                  aria-invalid={!!error}
+                  className="h-11 rounded-xl border-slate-300 bg-white"
+                />
+              </Field>
 
-                <Field>
-                  <FieldLabel>Confirm Password</FieldLabel>
-                  <Input value={confirmPwd} onChange={e => setConfirmPwd(e.target.value)} type="password" required />
-                </Field>
+              <Field>
+                <FieldLabel htmlFor="signup-confirm-password">
+                  Confirm password
+                </FieldLabel>
+                <Input
+                  id="signup-confirm-password"
+                  type="password"
+                  autoComplete="new-password"
+                  value={confirmPassword}
+                  onChange={clearErrorOnChange(setConfirmPassword)}
+                  disabled={submitting}
+                  required
+                  aria-invalid={!!error}
+                  className="h-11 rounded-xl border-slate-300 bg-white"
+                />
+              </Field>
 
-                {error && <p className="text-red-500 text-sm">{error}</p>}
+              <p
+                role={error ? "alert" : undefined}
+                aria-live="polite"
+                className={cn(
+                  "min-h-5 text-sm leading-5 transition-colors",
+                  error ? "text-red-600" : "text-transparent"
+                )}
+              >
+                {error || EMPTY_ERROR_SLOT}
+              </p>
 
-                <FieldGroup>
-                  <Field>
-                    <Button type="submit" disabled={submitting}>
-                      {submitting ? "Creating..." : "Create Account"}
-                    </Button>
+              <Field className="gap-4">
+                <Button
+                  type="submit"
+                  disabled={submitting}
+                  className="h-11 rounded-full bg-slate-950 text-white hover:bg-slate-800"
+                >
+                  {submitting ? "Creating account..." : "Create account"}
+                </Button>
 
-                    <FieldDescription className="px-6 text-center">
-                      Already have an account? <Link to="/login" className="text-primary hover:underline">Sign in</Link>
-                    </FieldDescription>
-                  </Field>
-                </FieldGroup>
-              </FieldGroup>
-            </form>
-          </CardContent>
-        </Card>
-
+                <FieldDescription className="text-center text-sm text-slate-500">
+                  Already have an account?{" "}
+                  <Link
+                    to="/login"
+                    className="font-medium text-slate-800 hover:text-black"
+                  >
+                    Log in
+                  </Link>
+                </FieldDescription>
+              </Field>
+            </FieldGroup>
+          </form>
+        </div>
       </div>
     </div>
   );

@@ -1,95 +1,94 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 } from "../ui/accordion";
+import { Button } from "../ui/button";
+import SectionIntro from "./SectionIntro.jsx";
+
+const faqItems = [
+  {
+    value: "item-1",
+    question: "Why use an AI resume builder instead of editing manually?",
+    answer:
+      "Manual editing works, but it is slow and easy to miss what a role is really asking for. FairStart helps you target the role faster, sharpen weak bullets, and keep your resume structured for ATS systems.",
+  },
+  {
+    value: "item-2",
+    question: "Will the resume feel obviously AI-written?",
+    answer:
+      "That is exactly what we try to avoid. The goal is stronger phrasing based on your actual experience, not generic language or inflated claims that feel copied from a template.",
+  },
+  {
+    value: "item-3",
+    question: "How does FairStart tailor a resume to a job description?",
+    answer:
+      "The product scans the job post, identifies important requirements, compares them against your resume, and then guides updates so the final document reflects the role more clearly without keyword stuffing.",
+  },
+  {
+    value: "item-4",
+    question: "Can I improve an existing resume instead of starting over?",
+    answer:
+      "Yes. You can upload what you already have, review the feedback, and iterate from there. FairStart is designed to help refine a working draft, not just generate one from scratch.",
+  },
+];
 
 const FAQ = () => {
-    return (
+  return (
+    <section id="faqSection" className="home-section border-b-0">
+      <div className="home-container">
+        <SectionIntro
+          eyebrow="FAQ"
+          title="Questions people usually ask before they trust the workflow"
+          description="A good resume tool should be easy to understand before you commit to it. These answers focus on what the product actually helps with in practice."
+        />
 
-        <section className='mx-auto px-6 py-20 lg:py-30 border-b border-gray-800 text-center'>
-            <div className='max-w-4xl mx-auto px-4 sm:px-6 lg:px-8'>
-                {/* Title Section */}
-                <header className='text-center mb-8'>
-                    <h2 className='text-4xl sm:text-5xl font-extrabold tracking-tight mb-4'>
-                        Frequently Asked Questions
-                    </h2>
-                    <p className="text-lg text-gray-400">
-                        Everything you need to know about our AI resume builder.
-                    </p>
-                </header>
-                <Accordion
-                    type="single"
-                    collapsible
-                    className="w-full space-y-4"
-                    defaultValue="item-1">
-                    
-                    {/* FAQ Item 1 */}
-                    <AccordionItem
-                        value="item-1"
-                        className='border-b border-gray-700 bg-gray-800 px-4 rounded-lg overflow-hidden'>
-                        <AccordionTrigger className='text-lg font-semibold text-white hover:text-blue-400 transition-colors py-4'>
-                            Why should I use an AI resume builder tool?
-                        </AccordionTrigger>
-                        <AccordionContent className="text-base text-gray-300 space-y-4 pt-2 pb-4">
-                            <p className='text-left'>
-                                An AI resume builder helps you craft the most optimized resume for your dream job. Our AI is designed to adopt the phrasing that hiring managers are looking for, increasing your chances of standing out.
-                            </p>
-                            <p className='text-left'>
-                                Key features include advanced processing capabilities and an intuitive UI designed for both beginners and experts.
-                            </p>
-                        </AccordionContent>
-                    </AccordionItem>
-                    
-                    {/* FAQ Item 2 */}
-                    <AccordionItem
-                        value="item-2"
-                        className='border-b border-gray-700 bg-gray-800 px-4 rounded-lg overflow-hidden'
-                    >
-                        <AccordionTrigger className='text-lg font-semibold text-white hover:text-blue-400 transition-colors py-4'>
-                            Will employers know I used AI to write my resume?
-                        </AccordionTrigger>
-                        <AccordionContent className="text-base text-gray-300 pt-2 pb-4">
-                            <p className='text-left'>
-                                Employers may guess you used AI, but this is generally not an issue. What they truly care about is a well-written resume that accurately showcases your skills and experience. A top-tier resume tailored to their needs speaks volumes.
-                            </p>
-                        </AccordionContent>
-                    </AccordionItem>
-                    
-                    {/* FAQ Item 3 */}
-                    <AccordionItem
-                        value="item-3"
-                        className='border-b border-gray-700 bg-gray-800 px-4 rounded-lg overflow-hidden'>
-                        <AccordionTrigger className='text-lg font-semibold text-white hover:text-blue-400 transition-colors py-4'>
-                            How does FairStart tailor my resume to a specific job description?
-                        </AccordionTrigger>
-                        <AccordionContent className="text-base text-gray-300 pt-2 pb-4">
-                            <p className='text-left'>
-                                FairStart uses AI Keyword Targeting to scan the job description for key terms and seamlessly integrates them into your resume. This gives your resume the right focus without keyword stuffing and boosts its ATS compatibility.
-                            </p>
-                        </AccordionContent>
-                    </AccordionItem>
+        <Accordion
+          type="single"
+          collapsible
+          className="mx-auto w-full max-w-4xl space-y-4"
+          defaultValue="item-1"
+        >
+          {faqItems.map((item) => (
+            <AccordionItem
+              key={item.value}
+              value={item.value}
+              className="home-panel-soft overflow-hidden px-5 sm:px-6"
+            >
+              <AccordionTrigger className="py-5 text-base font-semibold text-white hover:no-underline hover:text-cyan-100 sm:text-lg">
+                {item.question}
+              </AccordionTrigger>
+              <AccordionContent className="pb-5 text-sm leading-7 text-slate-300 sm:text-base">
+                {item.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
 
-                    {/* FAQ Item 4 */}
-                    <AccordionItem
-                        value="item-4"
-                        className='border-b-0 bg-gray-800 px-4 rounded-lg overflow-hidden'
-                    >
-                        <AccordionTrigger className='text-lg font-semibold text-white hover:text-blue-400 transition-colors py-4'>
-                            Can I use the AI to optimize an existing resume?
-                        </AccordionTrigger>
-                        <AccordionContent className="text-base text-gray-300 pt-2 pb-4">
-                            <p className='text-left'>
-                                Absolutely. You can upload your current resume, share your career goals and target job, and let our AI refine everything to boost your document's impact and Applicant Tracking System (ATS) compatibility.
-                            </p>
-                        </AccordionContent>
-                    </AccordionItem>
-                </Accordion>
-            </div>
-        </section>
-    );
+        <div className="home-panel-soft mx-auto mt-12 flex max-w-4xl flex-col items-start justify-between gap-5 p-6 sm:flex-row sm:items-center sm:p-8">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-100">
+              Ready to try it
+            </p>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300 sm:text-base">
+              Open the dashboard and run a real resume through the workflow to
+              see how the feedback feels on your own material.
+            </p>
+          </div>
+          <Button
+            asChild
+            size="lg"
+            className="h-12 rounded-full border border-cyan-300/20 bg-cyan-300 px-6 text-slate-950 hover:bg-cyan-200"
+          >
+            <Link to="/dashboard">Open dashboard</Link>
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default FAQ;
